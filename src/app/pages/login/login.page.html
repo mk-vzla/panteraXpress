@@ -1,0 +1,34 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Header Login</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-card class="ion-text-center expand-card botones-login">
+    <mat-button-toggle-group [(ngModel)]="toggleSeleccion" name="toggleSeleccion">
+      <mat-button-toggle value="login">Ingresar</mat-button-toggle>
+      <mat-button-toggle value="register" (click)="irARegistro()">Registrarse</mat-button-toggle>
+    </mat-button-toggle-group>
+
+    <br>
+
+    <mat-card class="login-card">
+      <mat-form-field appearance="fill" class="login-form-field">
+        <mat-label>Email</mat-label>
+        <input matInput [(ngModel)]="email" name="email">
+      </mat-form-field>
+      <mat-form-field appearance="fill" class="login-form-field">
+        <mat-label>Contraseña</mat-label>
+        <input matInput [(ngModel)]="password" name="password">
+      </mat-form-field>
+      <button mat-stroked-button color="primary" (click)="conectarseLogin()" class="boton-ingresar">Conectarse</button>
+    </mat-card>
+
+  </ion-card>
+  <ion-footer class="footer-pantera">
+    <ion-toolbar>
+      <ion-title size="small">App desarrollada por MK</ion-title>
+    </ion-toolbar>
+  </ion-footer>
+</ion-content>

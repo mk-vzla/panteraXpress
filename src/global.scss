@@ -1,3 +1,8 @@
+@use '@angular/material' as mat;
+@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+
+
+
 /*
  * App Global CSS
  * ----------------------------------------------------------------------------
@@ -34,4 +39,11 @@
 
 /* @import "@ionic/angular/css/palettes/dark.always.css"; */
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
-@import "@ionic/angular/css/palettes/dark.system.css";
+// @import "@ionic/angular/css/palettes/dark.system.css";
+
+.footer-pantera ion-toolbar,
+.footer-pantera ion-title,
+.footer-pantera ion-label {
+  color: #A67C00 !important;
+  background: #222222 !important;
+}
