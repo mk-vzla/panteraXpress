@@ -1,0 +1,7 @@
+{
+  "name": "panteraXpress",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
