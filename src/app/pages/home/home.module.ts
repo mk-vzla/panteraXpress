@@ -6,14 +6,21 @@ import { HomePage } from './home.page';
 
 import { HomePageRoutingModule } from './home-routing.module';
 
+import { MaterialModule } from '../../material.module'; // <-- Añadir
+
+import { FormatearFechaPipe } from '../../pipes/formatear-fecha.pipe';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    HomePageRoutingModule
+    HomePageRoutingModule,
+    MaterialModule,
   ],
-  declarations: [HomePage]
+  declarations: [HomePage, FormatearFechaPipe] ,
+  exports: [
+    FormatearFechaPipe
+  ]
 })
 export class HomePageModule {}

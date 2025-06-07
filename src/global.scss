@@ -47,3 +47,15 @@
   color: #A67C00 !important;
   background: #222222 !important;
 }
+
+ ion-header {
+    --background: transparent; /* Fondo transparente */
+    --ion-toolbar-background: transparent; /* Fondo transparente para la toolbar */
+    --ion-toolbar-border-color: transparent; /* Elimina el borde */
+  }
+
+  ion-header {
+  background-size: cover;
+  background-position: center;
+  background-color: #2C3E50;
+}

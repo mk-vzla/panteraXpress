@@ -1,0 +1,45 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Selecciona tu asiento</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card class="ion-text-center expand-card botones-home">
+    <mat-card class="home-card">
+      <h2 class="resultados-titulo">Resumen de tu viaje</h2>
+      <div class="resumen-viaje">
+        <span><strong>Origen:</strong> {{ origen }}</span>
+        <span><strong>Destino:</strong> {{ destino }}</span>
+        <span><strong>Fecha:</strong> {{ fecha | formatearFecha }}</span>
+        <span><strong>Salida:</strong> {{ salida }}</span>
+      </div>
+      <h2 class="resultados-titulo">Selecciona tu asiento</h2>
+      <div class="bus-grid">
+        <div class="fila" *ngFor="let fila of filas">
+          <button *ngFor="let asiento of fila.ladoIzq" class="asiento-btn"
+            [class.selected]="asiento === asientoSeleccionado"
+            [disabled]="!asientosDisponibles.includes(asiento)"
+            (click)="seleccionarAsiento(asiento)">
+            {{ asiento }}
+          </button>
+          <div class="espacio"></div>
+          <button *ngFor="let asiento of fila.ladoDer" class="asiento-btn"
+            [class.selected]="asiento === asientoSeleccionado"
+            [disabled]="!asientosDisponibles.includes(asiento)"
+            (click)="seleccionarAsiento(asiento)">
+            {{ asiento }}
+          </button>
+        </div>
+      </div>
+      <div class="asiento-seleccionado" *ngIf="asientoSeleccionado">
+        Asiento seleccionado: <strong>{{ asientoSeleccionado }}</strong>
+      </div>
+    </mat-card>
+  </ion-card>
+  <ion-footer class="footer-pantera">
+    <ion-toolbar>
+      <ion-title size="small">App desarrollada por MK</ion-title>
+    </ion-toolbar>
+  </ion-footer>
+</ion-content>

@@ -1,20 +1,104 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
+    <ion-buttons slot="start">
+      <ion-menu-button autoHide="false"></ion-menu-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content fullscreen>
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-  </div>
+  <!-- TARJETA DE BÚSQUEDA -->
+  <mat-card class="home-card search-card">
+    <h1>BusTicket</h1>
+
+    <mat-form-field appearance="fill" class="home-form-field">
+      <mat-label>Origen</mat-label>
+      <mat-select [(ngModel)]="origen" (selectionChange)="actualizarDestinos()">
+        <mat-option *ngFor="let o of listaOrigenes" [value]="o">{{ o }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="home-form-field">
+      <mat-label>Destino</mat-label>
+      <mat-select [(ngModel)]="destino">
+        <mat-option *ngFor="let d of listaDestinos" [value]="d" [disabled]="d === origen">
+          {{ d }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="home-form-field">
+      <mat-label>Fecha</mat-label>
+      <input matInput [matDatepicker]="picker" [(ngModel)]="fecha" [min]="fechaMinima">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+    <div *ngIf="mensajeError" class="mensaje-error">{{ mensajeError }}</div>
+
+    <button mat-stroked-button color="primary" (click)="buscarBuses()" class="boton-buscar">
+      Buscar
+    </button>
+  </mat-card>
+
+
+  <!-- TARJETA DE RESULTADOS -->
+  <mat-card class="home-card resultados-card" *ngIf="mostrarResultados">
+    <h2 class="resultados-titulo">Detalles</h2>
+
+    <div *ngIf="resultados.length > 0; else sinResultados">
+      <div class="resultado-list">
+        <div *ngFor="let ruta of resultados" class="resultado-item">
+          <div class="resultado-ciudades">
+            <strong>{{ ruta.origen }}</strong>
+            <span class="flecha">→</span>
+            <strong>{{ ruta.destino }}</strong>
+          </div>
+          <div class="fecha-seleccionada" *ngIf="fecha">
+            <strong>Fecha seleccionada:</strong> {{ fecha | formatearFecha }}
+          </div>
+          <div class="resultado-detalle">
+            <span>Duración: {{ ruta.duracion }}</span>
+            <span>Precio: {{ ruta.precio }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <ng-template #sinResultados>
+      <p class="resultados-vacio">No se encontraron rutas para la búsqueda.</p>
+    </ng-template>
+  </mat-card>
+
+
+  <!-- TARJETA DE SELECCIÓN DE SALIDA -->
+  <mat-card class="home-card salidas-card" *ngIf="mostrarResultados && resultados.length === 1">
+    <h2 class="resultados-titulo">Selecciona una salida</h2>
+    <div class="salidas-row">
+      <button mat-raised-button
+              color="primary"
+              class="salida-btn"
+              *ngFor="let salida of salidasDisponibles()"
+              [class.selected]="salida === salidaSeleccionada"
+              (click)="seleccionarSalida(salida)">
+        {{ salida }}
+      </button>
+    </div>
+    <div *ngIf="salidaSeleccionada" class="salida-seleccionada">
+      <button mat-raised-button color="accent" class="continuar-btn" (click)="irASeleccionAsiento()">
+        Continuar
+      </button>
+    </div>
+  </mat-card>
+
+
+
+
 </ion-content>
+
+  <ion-footer class="footer-pantera">
+    <ion-toolbar>
+      <ion-title size="small">App desarrollada por MK</ion-title>
+    </ion-toolbar>
+  </ion-footer>
