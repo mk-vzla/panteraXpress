@@ -8,7 +8,7 @@ import { AsientoPageRoutingModule } from './asiento-routing.module';
 import { AsientoPage } from './asiento.page';
 
 import { MaterialModule } from '../../material.module';
-import { FormatearFechaPipe } from '../../pipes/formatear-fecha.pipe';
+import { SharedModule } from '../../shared/shared.module';
 
 
 @NgModule({
@@ -17,11 +17,12 @@ import { FormatearFechaPipe } from '../../pipes/formatear-fecha.pipe';
     FormsModule,
     IonicModule,
     AsientoPageRoutingModule,
-    MaterialModule, // <-- Añadir
+    MaterialModule,
+    SharedModule 
   ],
-  declarations: [AsientoPage, FormatearFechaPipe],
+  declarations: [AsientoPage, ],
   exports: [
-    FormatearFechaPipe
+    
   ]
 })
 export class AsientoPageModule {}

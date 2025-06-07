@@ -7,8 +7,8 @@ import { HomePage } from './home.page';
 import { HomePageRoutingModule } from './home-routing.module';
 
 import { MaterialModule } from '../../material.module'; // <-- Añadir
+import { SharedModule } from '../../shared/shared.module';
 
-import { FormatearFechaPipe } from '../../pipes/formatear-fecha.pipe';
 
 @NgModule({
   imports: [
@@ -17,10 +17,11 @@ import { FormatearFechaPipe } from '../../pipes/formatear-fecha.pipe';
     IonicModule,
     HomePageRoutingModule,
     MaterialModule,
+    SharedModule  
   ],
-  declarations: [HomePage, FormatearFechaPipe] ,
+  declarations: [HomePage, ] ,
   exports: [
-    FormatearFechaPipe
+    
   ]
 })
 export class HomePageModule {}
