@@ -63,3 +63,15 @@
 ion-app, ion-content {
     --background: url('../src/assets/images/fondo1.jpg') no-repeat center center / cover;
  }
+
+ ion-menu-button::part(icon), 
+ion-menu-button .button-native,
+ion-menu-button ion-icon {
+  color: #A67C00 !important;
+  fill: #A67C00 !important;
+}
+
+h1 {
+  color: #A67C00 !important;
+  fill: #A67C00 !important;
+}

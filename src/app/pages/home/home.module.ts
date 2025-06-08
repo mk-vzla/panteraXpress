@@ -6,7 +6,7 @@ import { HomePage } from './home.page';
 
 import { HomePageRoutingModule } from './home-routing.module';
 
-import { MaterialModule } from '../../material.module'; // <-- Añadir
+import { MaterialModule } from '../../material.module';
 import { SharedModule } from '../../shared/shared.module';
 
 
