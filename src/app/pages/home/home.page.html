@@ -47,7 +47,7 @@
 
   <!-- TARJETA DE RESULTADOS -->
   <mat-card class="home-card resultados-card" *ngIf="mostrarResultados">
-    <h2 class="resultados-titulo">Resultados</h2>
+    <h2 class="resultados-titulo">Ruta Seleccionada</h2>
 
     <div *ngIf="resultados.length > 0; else sinResultados">
       <div class="resultado-list">
@@ -58,10 +58,12 @@
             <strong>{{ ruta.destino }}</strong>
           </div>
           <div class="fecha-seleccionada" *ngIf="fecha">
-            <strong>Fecha seleccionada:</strong> {{ fecha | formatearFecha }}
+            <strong>Fecha:</strong> {{ fecha | formatearFecha }}
           </div>
           <div class="resultado-detalle">
             <span>Duración: {{ ruta.duracion }}</span>
+          </div>
+          <div class="resultado-precio">
             <span>Precio: {{ ruta.precio }}</span>
           </div>
         </div>
