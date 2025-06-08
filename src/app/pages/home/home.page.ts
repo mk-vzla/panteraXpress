@@ -92,6 +92,16 @@ export class HomePage {
     });
   }
 
+  /**
+   * Devuelve un arreglo de strings con las salidas disponibles según la fecha seleccionada.
+   *
+   * - Si no hay exactamente un resultado en `this.resultados`, retorna un arreglo vacío.
+   * - Si no hay fecha seleccionada (`this.fecha`), retorna todas las salidas del primer resultado.
+   * - Si la fecha seleccionada es hoy, filtra y retorna solo las salidas cuyo horario es posterior a la hora actual.
+   * - Si la fecha seleccionada no es hoy, retorna todas las salidas del primer resultado.
+   *
+   * @returns {string[]} Un arreglo con las horas de salida disponibles según la lógica descrita.
+   */
   salidasDisponibles(): string[] {
     if (this.resultados.length !== 1) return [];
     const salidas = this.resultados[0].salidas;

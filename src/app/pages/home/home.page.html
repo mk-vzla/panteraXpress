@@ -37,7 +37,8 @@
 
     <div *ngIf="mensajeError" class="mensaje-error">{{ mensajeError }}</div>
 
-    <button mat-stroked-button color="primary" (click)="buscarBuses()" class="boton-buscar">
+    <button mat-stroked-button color="primary" (click)="buscarBuses()" class="boton-buscar"
+      [disabled]="!fecha">
       Buscar
     </button>
   </mat-card>
@@ -45,7 +46,7 @@
 
   <!-- TARJETA DE RESULTADOS -->
   <mat-card class="home-card resultados-card" *ngIf="mostrarResultados">
-    <h2 class="resultados-titulo">Detalles</h2>
+    <h2 class="resultados-titulo">Resultados</h2>
 
     <div *ngIf="resultados.length > 0; else sinResultados">
       <div class="resultado-list">
@@ -85,8 +86,10 @@
         {{ salida }}
       </button>
     </div>
-    <div *ngIf="salidaSeleccionada" class="salida-seleccionada">
-      <button mat-raised-button color="accent" class="continuar-btn" (click)="irASeleccionAsiento()">
+    <div *ngIf="salidasDisponibles().length > 0" class="salida-seleccionada">
+      <button mat-raised-button color="accent" class="continuar-btn"
+        (click)="irASeleccionAsiento()"
+        [disabled]="!salidaSeleccionada">
         Continuar
       </button>
     </div>
@@ -97,8 +100,3 @@
 
 </ion-content>
 
-  <ion-footer class="footer-pantera">
-    <ion-toolbar>
-      <ion-title size="small">App desarrollada por MK</ion-title>
-    </ion-toolbar>
-  </ion-footer>

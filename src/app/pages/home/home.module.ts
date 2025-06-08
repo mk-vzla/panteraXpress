@@ -19,7 +19,7 @@ import { SharedModule } from '../../shared/shared.module';
     MaterialModule,
     SharedModule  
   ],
-  declarations: [HomePage, ] ,
+  declarations: [HomePage],
   exports: [
     
   ]
