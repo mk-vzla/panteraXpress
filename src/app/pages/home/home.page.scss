@@ -1,8 +1,5 @@
 ion-content {
-  --padding-bottom: 80px;
-  /* espacio para el footer */
-  overflow-y: auto;
-  background: #222222;
+  background: transparent !important;
 }
 
 /* BASE TARJETAS */
@@ -91,6 +88,7 @@ ion-content {
 /* SALIDAS */
 .salidas-card {
   padding-top: 8px;
+  margin-bottom: 100px !important;
 }
 
 .salidas-row {

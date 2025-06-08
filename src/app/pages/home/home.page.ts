@@ -21,7 +21,6 @@ export class HomePage {
   listaDestinos: string[] = [];
 
   salidaSeleccionada: string | null = null;
-
   mensajeError: string = '';
 
   constructor(private router: Router, private busRutasService: BusRutasService) {
@@ -29,6 +28,7 @@ export class HomePage {
     this.actualizarDestinos();
   }
 
+  // Método para actualizar la lista de destinos según el origen seleccionado
   actualizarDestinos() {
     if (this.origen) {
       this.listaDestinos = Array.from(
@@ -56,13 +56,9 @@ export class HomePage {
     this.salidaSeleccionada = salida;
   }
 
+  // Método para buscar buses según origen, destino y fecha
   buscarBuses() {
     this.mensajeError = '';
-    if (!this.fecha) {
-      this.mostrarResultados = false;
-      this.mensajeError = 'Favor seleccione una fecha.';
-      return;
-    }
     this.resultados = this.busRutasService.rutas.filter(r =>
       (!this.origen || r.origen === this.origen) &&
       (!this.destino || r.destino === this.destino)
@@ -71,12 +67,8 @@ export class HomePage {
     this.salidaSeleccionada = null;
   }
 
+   // Método para navegar a la página de selección de asiento
   irASeleccionAsiento() {
-    if (!this.fecha) {
-      this.mensajeError = 'Favor seleccione una fecha.';
-      this.mostrarResultados = false;
-      return;
-    }
     if (!this.salidaSeleccionada) {
       this.mensajeError = 'Favor seleccione una salida.';
       this.mostrarResultados = false;
@@ -92,16 +84,7 @@ export class HomePage {
     });
   }
 
-  /**
-   * Devuelve un arreglo de strings con las salidas disponibles según la fecha seleccionada.
-   *
-   * - Si no hay exactamente un resultado en `this.resultados`, retorna un arreglo vacío.
-   * - Si no hay fecha seleccionada (`this.fecha`), retorna todas las salidas del primer resultado.
-   * - Si la fecha seleccionada es hoy, filtra y retorna solo las salidas cuyo horario es posterior a la hora actual.
-   * - Si la fecha seleccionada no es hoy, retorna todas las salidas del primer resultado.
-   *
-   * @returns {string[]} Un arreglo con las horas de salida disponibles según la lógica descrita.
-   */
+  // Método para obtener las salidas disponibles según la fecha seleccionada
   salidasDisponibles(): string[] {
     if (this.resultados.length !== 1) return [];
     const salidas = this.resultados[0].salidas;

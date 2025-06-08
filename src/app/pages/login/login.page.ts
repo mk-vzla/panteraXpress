@@ -40,7 +40,7 @@ export class LoginPage implements OnInit {
     toast.present();
   }
 
-
+  // Método para cambiar entre "Ingresar" y "Registrarse"
   async conectarseLogin() {
     if (!this.email || !this.password) {
       this.mostrarAlerta('Por favor, completa todos los campos.');
@@ -64,14 +64,17 @@ export class LoginPage implements OnInit {
     this.router.navigate(['/home'], { state: { email: this.email } });
   }
 
+  // Método para no conectarse, solo mostrar en consola
   noConectarseLogin() {
     console.log('NO CONECTANDO, MOSTRANDO EN CONSOLA');
   }
 
+  // Método para cambiar entre "Ingresar" y "Registrarse"
   irARegistro() {
     this.router.navigate(['/registro']).then(() => { location.reload(); });
   }
 
+  // Método para cambiar entre "Ingresar" y "Registrarse"
   ngOnInit() {
     const navigation = this.router.getCurrentNavigation();
     if (navigation?.extras?.state && navigation.extras.state['email']) {

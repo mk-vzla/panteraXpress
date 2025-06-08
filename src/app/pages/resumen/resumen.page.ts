@@ -17,15 +17,9 @@ export class ResumenPage implements OnInit {
   totalPagar: string = '';
 
   ngOnInit() {
-    // Recibe los parámetros por queryParams
-    // asientosSeleccionados debe venir como string separado por coma
-    // precio debe venir como string tipo "$10.500"
-    // duracion como string
-    // origen, destino, salida como string
-    // Ejemplo de navegación:
-    // this.router.navigate(['/resumen'], { queryParams: { origen, destino, duracion, precio, salida, asientos: asientosSeleccionados.join(',') } });
   }
 
+  // Constructor que recibe los parámetros de la ruta
   constructor(private route: ActivatedRoute) {
     this.route.queryParams.subscribe(params => {
       this.origen = params['origen'] || '';

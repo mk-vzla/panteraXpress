@@ -28,6 +28,7 @@ export class AsientoPage implements OnInit {
     private busRutasService: BusRutasService
   ) { }
 
+  // Método que se ejecuta al inicializar el componente
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
       this.origen = params['origen'] || '';
@@ -56,14 +57,7 @@ export class AsientoPage implements OnInit {
     this.asientosSeleccionados = [];
   }
 
-  /**
-   * Selecciona o deselecciona un asiento dado su número.
-   * 
-   * Si el asiento está disponible y no ha sido seleccionado previamente, lo agrega a la lista de asientos seleccionados.
-   * Si el asiento ya estaba seleccionado, lo elimina de la lista de seleccionados.
-   * 
-   * @param asiento - El número del asiento a seleccionar o deseleccionar.
-   */
+  // Método para seleccionar un asiento
   seleccionarAsiento(asiento: number) {
     if (!this.asientosDisponibles.includes(asiento)) return;
     const idx = this.asientosSeleccionados.indexOf(asiento);
@@ -74,6 +68,7 @@ export class AsientoPage implements OnInit {
     }
   }
 
+  // Método para verificar si un asiento está seleccionado
   continuar() {
     if (!this.rutaSeleccionada) return;
     this.router.navigate(['/resumen'], {

@@ -61,14 +61,31 @@
 }
 
 ion-app, ion-content {
-    --background: url('../src/assets/images/fondo1.jpg') no-repeat center center / cover;
- }
+  --background: none;
+  position: relative;
+  min-height: 100vh;
+}
 
- ion-menu-button::part(icon), 
-ion-menu-button .button-native,
-ion-menu-button ion-icon {
-  color: #A67C00 !important;
-  fill: #A67C00 !important;
+
+ion-app::before, ion-content::before {
+  content: "";
+  position: fixed;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%);
+  width: 100vw;
+  height: 100vh;
+  background: url('../src/assets/images/fondo2.jpg') no-repeat center bottom;
+  background-size: cover;
+  background-position: center bottom;
+  pointer-events: none;
+  z-index: -1;
+}
+
+
+
+ion-content {
+  background: transparent !important;
 }
 
 h1 {
@@ -80,4 +97,68 @@ ion-title, .toolbar-title {
   fill: #A67C00 !important;
   text-align: center;
   font-weight: bold;
+}
+
+ion-toolbar {
+  position: relative;
+}
+
+ion-title {
+  position: absolute;
+  left: 0;
+  right: 0;
+  text-align: center;
+  width: 100%;
+  pointer-events: none; // evita que el título bloquee el menú
+  z-index: 1; // asegura que el título esté por encima de otros elementos
+  margin-top: -0px;
+}
+
+ion-buttons[slot="start"] {
+  z-index: 2;
+}
+
+ion-menu-button {
+  z-index: 3;
+}
+
+ion-menu-button,
+ion-menu-button .button-native,
+ion-menu-button ion-icon {
+  color: #A67C00 !important;
+  fill: #A67C00 !important;
+  opacity: 1 !important;
+  filter: none !important;
+  --color: #A67C00 !important;
+  --ion-color-base: #A67C00 !important;
+  --ion-color-primary: #A67C00 !important;
+  --ion-color-primary-contrast: #222222 !important;
+  --ion-color-primary-shade: #A67C00 !important;
+  --ion-color-primary-tint: #A67C00 !important;
+}
+
+ion-menu-button[disabled],
+ion-menu-button[aria-disabled="true"],
+ion-menu-button .button-native[disabled],
+ion-menu-button .button-native[aria-disabled="true"],
+ion-menu-button[disabled] ion-icon,
+ion-menu-button[aria-disabled="true"] ion-icon {
+  color: #A67C00 !important;
+  fill: #A67C00 !important;
+  opacity: 1 !important;
+  filter: none !important;
+}
+
+ion-menu-button {
+  z-index: 3;
+}
+
+
+html, body, ion-app {
+  height: 100%;
+  overflow: hidden;
+}
+
+ion-content {
+  overflow-y: auto;
 }

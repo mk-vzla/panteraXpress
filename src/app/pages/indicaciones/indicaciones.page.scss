@@ -1,7 +1,5 @@
 ion-content {
-  background: #222222;
-  min-height: 100vh;
-  padding-bottom: 24px;
+  background: transparent !important;
 }
 
 .indicacion-card {
@@ -22,5 +20,5 @@ ion-content {
 }
 
 .indicacion-card:last-child {
-  margin-bottom: 32px;
+  margin-bottom: 100px;
 }

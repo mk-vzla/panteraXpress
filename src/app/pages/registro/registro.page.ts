@@ -26,6 +26,7 @@ export class RegistroPage implements OnInit {
     private toastController: ToastController
   ) { }
 
+  // Método para mostrar una alerta genérica
   async mostrarAlerta(mensaje: string) {
     const alerta = await this.alertController.create({
       header: 'Alerta',
@@ -35,6 +36,7 @@ export class RegistroPage implements OnInit {
     await alerta.present();
   }
 
+  // Método para mostrar un toast de éxito
   async mostrarToast(mensaje: string) {
     const toast = await this.toastController.create({
       message: mensaje,
@@ -45,6 +47,7 @@ export class RegistroPage implements OnInit {
     toast.present();
   }
 
+  // Método para cambiar entre "Ingresar" y "Registrarse"
   registrarUsuario() {
     if (!this.usuario.nombre || !this.usuario.apellido || !this.usuario.rut || !this.usuario.email) {
       this.mostrarAlerta('Por favor, completa todos los campos obligatorios.');
@@ -69,6 +72,7 @@ export class RegistroPage implements OnInit {
 
   }
 
+  // Método para navegar a la página de inicio de sesión
   irALogin() {
     this.router.navigate(['/login']).then(() => { location.reload(); });
   }
