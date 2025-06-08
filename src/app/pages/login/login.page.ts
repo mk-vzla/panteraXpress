@@ -61,7 +61,7 @@ export class LoginPage implements OnInit {
     // Si las validaciones están bien, conectarse
     console.log('CONECTANDO:', this.email);
     await this.mostrarToast('¡Conexión exitosa!');
-    this.router.navigate(['/registro'], { state: { email: this.email } });
+    this.router.navigate(['/home'], { state: { email: this.email } });
   }
 
   noConectarseLogin() {
@@ -73,6 +73,10 @@ export class LoginPage implements OnInit {
   }
 
   ngOnInit() {
+    const navigation = this.router.getCurrentNavigation();
+    if (navigation?.extras?.state && navigation.extras.state['email']) {
+      this.email = navigation.extras.state['email'];
+    }
   }
 
 }

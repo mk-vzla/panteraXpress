@@ -13,13 +13,17 @@
           <ion-icon slot="start" name="home"></ion-icon>
           Home
         </ion-item>
-        <ion-item button routerLink="/about">
+        <!-- <ion-item button routerLink="/about">
           <ion-icon slot="start" name="information-circle"></ion-icon>
-          About
+          Acerca de nosotros
         </ion-item>
         <ion-item button routerLink="/contact">
           <ion-icon slot="start" name="mail"></ion-icon>
-          Contact
+          Contacto
+        </ion-item> -->
+        <ion-item button routerLink="/login" (click)="cerrarMenu()">
+          <ion-icon name="log-out-outline"></ion-icon>
+          Desconectarse
         </ion-item>
       </ion-list>
     </ion-content>

@@ -1,0 +1,46 @@
+ion-app {
+  background: #A67C00; // Dorado envejecido de fondo general
+}
+
+ion-menu {
+  --background: #222222; // Negro carbón para el fondo del menú
+  color: #fff;
+}
+
+ion-header, ion-toolbar {
+  --background: #2C3E50; // Azul noche para la cabecera del menú
+  color: #A67C00;         // Dorado envejecido para el texto
+}
+
+ion-title {
+  color: #A67C00 !important; // Dorado envejecido para el título
+  font-weight: bold;
+}
+
+ion-list {
+  background: transparent;
+}
+
+ion-item {
+  --background: transparent;
+  color: #fff;
+  font-weight: 500;
+  border-radius: 8px;
+  margin: 4px 0;
+  transition: background 0.2s, color 0.2s;
+}
+
+ion-item:hover, ion-item:focus {
+  background: #3E3E3E; // Gris tormenta al pasar el mouse
+  color: #A67C00;
+}
+
+ion-icon {
+  color: #5E2129; // Burdeos oscuro para los íconos
+  margin-right: 8px;
+}
+
+ion-menu {
+  box-shadow: 2px 0 8px #22222288;
+  border-right: 2px solid #A67C00;
+}

@@ -62,7 +62,7 @@ export class RegistroPage implements OnInit {
     }
     // Si pasa validaciones
     this.mostrarToast('¡Registro exitoso!');
-    this.router.navigate(['/login']);
+    this.router.navigate(['/login'], { state: { email: this.usuario.email } });
   }
 
   ngOnInit() {
