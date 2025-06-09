@@ -21,13 +21,13 @@
       <div class="fila" *ngFor="let fila of filas">
         <button *ngFor="let asiento of fila.ladoIzq" class="asiento-btn"
           [class.selected]="asientosSeleccionados.includes(asiento)" [disabled]="!asientosDisponibles.includes(asiento)"
-          (click)="seleccionarAsiento(asiento)">
+          (click)="seleccionarAsiento(asiento, $event)">
           {{ asiento }}
         </button>
         <div class="espacio"></div>
         <button *ngFor="let asiento of fila.ladoDer" class="asiento-btn"
           [class.selected]="asientosSeleccionados.includes(asiento)" [disabled]="!asientosDisponibles.includes(asiento)"
-          (click)="seleccionarAsiento(asiento)">
+          (click)="seleccionarAsiento(asiento, $event)">
           {{ asiento }}
         </button>
       </div>
@@ -36,8 +36,7 @@
       Asientos seleccionados: <strong>{{ asientosSeleccionados.join(', ') }}</strong>
     </div>
     <div *ngIf="true" class="continuar-btn-container">
-      <button mat-raised-button color="accent" class="continuar-btn"
-        (click)="continuar()"
+      <button mat-raised-button color="accent" class="continuar-btn" (click)="continuar()"
         [disabled]="asientosSeleccionados.length === 0">
         Continuar
       </button>

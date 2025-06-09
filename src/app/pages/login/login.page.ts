@@ -60,7 +60,7 @@ export class LoginPage implements OnInit {
     }
     // Si las validaciones están bien, conectarse
     console.log('CONECTANDO:', this.email);
-    await this.mostrarToast('Conexión exitosa: '+ this.email);
+    await this.mostrarToast('Conexión exitosa: ' + this.email);
     localStorage.setItem('email', this.email);
     this.router.navigate(['/home'], { state: { email: this.email } });
   }

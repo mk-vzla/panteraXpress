@@ -13,7 +13,6 @@
   <!-- TARJETA DE BÚSQUEDA -->
   <mat-card class="home-card search-card">
     <h1>BusTicket</h1>
-
     <mat-form-field appearance="fill" class="home-form-field">
       <mat-label>Origen</mat-label>
       <mat-select [(ngModel)]="origen" (selectionChange)="actualizarDestinos()">
@@ -29,16 +28,13 @@
         </mat-option>
       </mat-select>
     </mat-form-field>
-
     <mat-form-field appearance="fill" class="home-form-field">
       <mat-label>Fecha</mat-label>
       <input matInput [matDatepicker]="picker" [(ngModel)]="fecha" [min]="fechaMinima">
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>
-
     <div *ngIf="mensajeError" class="mensaje-error">{{ mensajeError }}</div>
-
     <button mat-stroked-button color="primary" (click)="buscarBuses()" class="boton-buscar" [disabled]="!fecha">
       Buscar
     </button>
@@ -48,8 +44,7 @@
   <!-- TARJETA DE RESULTADOS -->
   <mat-card class="home-card resultados-card" *ngIf="mostrarResultados">
     <h2 class="resultados-titulo">Ruta Seleccionada</h2>
-
-    <div *ngIf="resultados.length > 0; else sinResultados">
+    <div *ngIf="resultados.length > 0">
       <div class="resultado-list">
         <div *ngFor="let ruta of resultados" class="resultado-item">
           <div class="resultado-ciudades">
@@ -69,17 +64,16 @@
         </div>
       </div>
     </div>
-
-    <ng-template #sinResultados>
-      <p class="resultados-vacio">No se encontraron rutas para la búsqueda.</p>
-    </ng-template>
   </mat-card>
 
 
   <!-- TARJETA DE SELECCIÓN DE SALIDA -->
   <mat-card class="home-card salidas-card" *ngIf="mostrarResultados && resultados.length === 1">
-    <h2 class="resultados-titulo">Selecciona una salida</h2>
-    <div class="salidas-row">
+    <h2 class="resultados-titulo">
+      {{ salidasDisponibles().length > 0 ? 'Selecciona una salida' : 'No hay buses disponibles para la fecha
+      seleccionada' }}
+    </h2>
+    <div class="salidas-row" *ngIf="salidasDisponibles().length > 0">
       <button mat-raised-button color="primary" class="salida-btn" *ngFor="let salida of salidasDisponibles()"
         [class.selected]="salida === salidaSeleccionada" (click)="seleccionarSalida(salida)">
         {{ salida }}

@@ -19,7 +19,7 @@ export class RegistroPage implements OnInit {
     contrasena2: '',
     telefono: ''
   };
-  
+
   toggleSeleccion: string = 'register';
 
   constructor(
@@ -51,7 +51,7 @@ export class RegistroPage implements OnInit {
 
   // Método para registrar un usuario
   registrarUsuario() {
-    if (!this.usuario.nombre || !this.usuario.apellido || !this.usuario.rut || !this.usuario.email 
+    if (!this.usuario.nombre || !this.usuario.apellido || !this.usuario.rut || !this.usuario.email
       || !this.usuario.contrasena1 || !this.usuario.contrasena2) {
       this.mostrarAlerta('Por favor, completa todos los campos obligatorios.');
       return;

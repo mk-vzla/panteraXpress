@@ -58,13 +58,17 @@ export class AsientoPage implements OnInit {
   }
 
   // Método para seleccionar un asiento
-  seleccionarAsiento(asiento: number) {
+  seleccionarAsiento(asiento: number, event?: Event) {
     if (!this.asientosDisponibles.includes(asiento)) return;
     const idx = this.asientosSeleccionados.indexOf(asiento);
     if (idx === -1) {
       this.asientosSeleccionados.push(asiento);
     } else {
       this.asientosSeleccionados.splice(idx, 1);
+    }
+    // Quitar el focus del botón
+    if (event) {
+      (event.target as HTMLElement).blur();
     }
   }
 
@@ -78,6 +82,7 @@ export class AsientoPage implements OnInit {
         duracion: this.rutaSeleccionada.duracion,
         precio: this.rutaSeleccionada.precio,
         salida: this.salida,
+        fecha: this.fecha, // <-- Añade la fecha
         asientos: this.asientosSeleccionados.join(', ')
       }
     });
