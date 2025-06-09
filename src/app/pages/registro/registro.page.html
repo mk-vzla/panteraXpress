@@ -20,19 +20,19 @@
     <mat-card class="login-card">
       <mat-form-field appearance="fill" class="login-form-field">
         <mat-label>Nombre</mat-label>
-        <input matInput [(ngModel)]="usuario.nombre" name="nombre" required>
+        <input matInput [(ngModel)]="usuario.nombre" name="nombre" required autocomplete="given-name">
       </mat-form-field>
       <mat-form-field appearance="fill" class="login-form-field">
         <mat-label>Apellido</mat-label>
-        <input matInput [(ngModel)]="usuario.apellido" name="apellido" required>
+        <input matInput [(ngModel)]="usuario.apellido" name="apellido" required autocomplete="family-name">
       </mat-form-field>
       <mat-form-field appearance="fill" class="login-form-field">
         <mat-label>RUT</mat-label>
-        <input matInput [(ngModel)]="usuario.rut" name="rut" required placeholder="Ej: 12345678-9">
+        <input matInput [(ngModel)]="usuario.rut" name="rut" required placeholder="Ej: 12345678-9" autocomplete="off">
       </mat-form-field>
       <mat-form-field appearance="fill" class="login-form-field">
         <mat-label>Email</mat-label>
-        <input matInput [(ngModel)]="usuario.email" name="email" required>
+        <input matInput [(ngModel)]="usuario.email" name="email" required autocomplete="email">
       </mat-form-field>
       <mat-form-field appearance="fill" class="login-form-field">
         <mat-label>Contraseña</mat-label>
@@ -45,7 +45,7 @@
       </mat-form-field>
       <mat-form-field appearance="fill" class="login-form-field">
         <mat-label>Teléfono Celular</mat-label>
-        <input matInput [(ngModel)]="usuario.telefono" name="telefono" placeholder="Ej: 987654321">
+        <input matInput [(ngModel)]="usuario.telefono" name="telefono" placeholder="Ej: 987654321" autocomplete="tel">
       </mat-form-field>
       <mat-slide-toggle class="toggle-slider">Deseo Recibir Ofertas</mat-slide-toggle>
       <button mat-stroked-button color="primary" (click)="registrarUsuario()"

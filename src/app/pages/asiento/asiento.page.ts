@@ -74,6 +74,12 @@ export class AsientoPage implements OnInit {
 
   // Método para verificar si un asiento está seleccionado
   continuar() {
+
+    // Quitar el foco del elemento activo antes de navegar
+    if (document.activeElement instanceof HTMLElement) {
+      document.activeElement.blur();
+
+    }
     if (!this.rutaSeleccionada) return;
     this.router.navigate(['/resumen'], {
       queryParams: {

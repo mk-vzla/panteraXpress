@@ -96,6 +96,10 @@ export class HomePage {
 
   // Método para navegar a la página de selección de asiento
   irASeleccionAsiento() {
+    // Quitar el foco del elemento activo antes de navegar
+    if (document.activeElement instanceof HTMLElement) {
+      document.activeElement.blur();
+    }
     this.router.navigate(['/asiento'], {
       queryParams: {
         origen: this.origen,

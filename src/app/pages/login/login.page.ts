@@ -58,6 +58,10 @@ export class LoginPage implements OnInit {
       this.password = '';
       return;
     }
+    // Quitar el foco del elemento activo antes de navegar
+    if (document.activeElement instanceof HTMLElement) {
+      document.activeElement.blur();
+    }
     // Si las validaciones están bien, conectarse
     console.log('CONECTANDO:', this.email);
     await this.mostrarToast('Conexión exitosa: ' + this.email);

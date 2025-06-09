@@ -1,12 +1,10 @@
 <ion-app>
-  <div class="fixed-background"></div>
-  <ion-menu side="start" contentId="menu-menu" menuID="main-menu">
+  <ion-menu side="start" contentId="menu-menu" menuID="main-menu"
+    (ionWillOpen)="quitarFoco()" (ionWillClose)="quitarFoco()">
     <ion-header>
       <ion-toolbar>
-        <ion-title>Menu</ion-title>
       </ion-toolbar>
     </ion-header>
-
     <ion-content>
       <ion-list>
         <ion-item *ngIf="usuario">
@@ -34,5 +32,4 @@
   </ion-menu>
 
   <ion-router-outlet id="menu-menu"></ion-router-outlet>
-
 </ion-app>

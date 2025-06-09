@@ -21,6 +21,15 @@ export class AppComponent {
   }
 
   cerrarMenu() {
+    if (document.activeElement instanceof HTMLElement) {
+      document.activeElement.blur();
+    }
     this.menu.close();
+  }
+
+  quitarFoco() {
+    if (document.activeElement instanceof HTMLElement) {
+      document.activeElement.blur();
+    }
   }
 }
