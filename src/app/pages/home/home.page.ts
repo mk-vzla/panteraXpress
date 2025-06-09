@@ -28,52 +28,71 @@ export class HomePage {
     this.actualizarDestinos();
   }
 
-  // Método para actualizar la lista de destinos según el origen seleccionado
-  actualizarDestinos() {
-    if (this.origen) {
-      this.listaDestinos = Array.from(
-        new Set(
-          this.busRutasService.rutas
-            .filter(r => r.origen === this.origen && r.destino !== this.origen)
-            .map(r => r.destino)
-        )
-      );
-      if (!this.listaDestinos.includes(this.destino)) {
-        this.destino = '';
-      }
-    } else {
-      this.listaDestinos = Array.from(
-        new Set(
-          this.busRutasService.rutas
-            .filter(r => r.destino !== this.origen)
-            .map(r => r.destino)
-        )
-      );
+// Método para actualizar la lista de destinos según el origen seleccionado
+// Este método filtra las rutas disponibles en el servicio para obtener los destinos únicos
+actualizarDestinos() {
+  if (this.origen) {
+    this.listaDestinos = Array.from(
+      new Set(
+        this.busRutasService.rutas
+          .filter(r => r.origen === this.origen && r.destino !== this.origen)
+          .map(r => r.destino)
+      )
+    );
+    // Si el origen no es Santiago y Santiago está disponible como destino, seleccionarlo automáticamente
+    if (this.origen !== 'Santiago' && this.listaDestinos.includes('Santiago')) {
+      this.destino = 'Santiago';
+    } 
+    // Si el origen es Santiago y el destino actual no está disponible, seleccionar el primer destino disponible
+    else if (this.origen === 'Santiago' && !this.listaDestinos.includes(this.destino)) {
+      this.destino = this.listaDestinos.length > 0 ? this.listaDestinos[0] : '';
     }
+    else if (!this.listaDestinos.includes(this.destino)) {
+      this.destino = '';
+    }
+  } else {
+    this.listaDestinos = Array.from(
+      new Set(
+        this.busRutasService.rutas
+          .filter(r => r.destino !== this.origen)
+          .map(r => r.destino)
+      )
+    );
   }
+}
 
   seleccionarSalida(salida: string) {
     this.salidaSeleccionada = salida;
   }
 
   // Método para buscar buses según origen, destino y fecha
-  buscarBuses() {
-    this.mensajeError = '';
-    this.resultados = this.busRutasService.rutas.filter(r =>
-      (!this.origen || r.origen === this.origen) &&
-      (!this.destino || r.destino === this.destino)
-    );
-    this.mostrarResultados = true;
-    this.salidaSeleccionada = null;
+buscarBuses() {
+  this.mensajeError = '';
+
+  // Si el origen no es Santiago, cambiar destino automáticamente a Santiago si está disponible
+  // if (this.origen !== 'Santiago' && this.listaDestinos.includes('Santiago')) {
+  //   this.destino = 'Santiago';
+  // }
+
+  // Validar que todos los campos estén completos
+  if (!this.origen || !this.destino || !this.fecha) {
+    this.mensajeError = 'Por favor, completa todos los campos antes de buscar.';
+    this.mostrarResultados = false;
+    return;
   }
 
-   // Método para navegar a la página de selección de asiento
+  this.resultados = this.busRutasService.rutas.filter(r =>
+    (!this.origen || r.origen === this.origen) &&
+    (!this.destino || r.destino === this.destino)
+  );
+  this.mostrarResultados = true;
+  this.salidaSeleccionada = null;
+}
+
+
+
+  // Método para navegar a la página de selección de asiento
   irASeleccionAsiento() {
-    if (!this.salidaSeleccionada) {
-      this.mensajeError = 'Favor seleccione una salida.';
-      this.mostrarResultados = false;
-      return;
-    }
     this.router.navigate(['/asiento'], {
       queryParams: {
         origen: this.origen,
@@ -84,7 +103,7 @@ export class HomePage {
     });
   }
 
-  // Método para obtener las salidas disponibles según la fecha seleccionada
+  // Método para obtener las salidas disponibles según la fecha seleccionada y la hora actual del sistema
   salidasDisponibles(): string[] {
     if (this.resultados.length !== 1) return [];
     const salidas = this.resultados[0].salidas;

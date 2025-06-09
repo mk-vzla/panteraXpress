@@ -15,9 +15,11 @@ export class RegistroPage implements OnInit {
     apellido: '',
     rut: '',
     email: '',
+    contrasena1: '',
+    contrasena2: '',
     telefono: ''
   };
-
+  
   toggleSeleccion: string = 'register';
 
   constructor(
@@ -47,10 +49,27 @@ export class RegistroPage implements OnInit {
     toast.present();
   }
 
-  // Método para cambiar entre "Ingresar" y "Registrarse"
+  // Método para registrar un usuario
   registrarUsuario() {
-    if (!this.usuario.nombre || !this.usuario.apellido || !this.usuario.rut || !this.usuario.email) {
+    if (!this.usuario.nombre || !this.usuario.apellido || !this.usuario.rut || !this.usuario.email 
+      || !this.usuario.contrasena1 || !this.usuario.contrasena2) {
       this.mostrarAlerta('Por favor, completa todos los campos obligatorios.');
+      return;
+    }
+    if (!/^[A-Za-zÁÉÍÓÚáéíóúÑñ ]+$/.test(this.usuario.nombre.trim())) {
+      this.mostrarAlerta('El nombre solo puede contener letras.');
+      return;
+    }
+    if (!/^[A-Za-zÁÉÍÓÚáéíóúÑñ ]+$/.test(this.usuario.apellido.trim())) {
+      this.mostrarAlerta('El apellido solo puede contener letras.');
+      return;
+    }
+    if (this.usuario.nombre.trim().split(/\s+/).length > 1) {
+      this.mostrarAlerta('Solo se permite un nombre.');
+      return;
+    }
+    if (this.usuario.apellido.trim().split(/\s+/).length > 1) {
+      this.mostrarAlerta('Solo se permite un apellido.');
       return;
     }
     // Validación simple de RUT (puedes mejorarla)
@@ -63,8 +82,26 @@ export class RegistroPage implements OnInit {
       this.mostrarAlerta('El email no es válido.');
       return;
     }
+    // Validación de contraseñas
+    if (this.usuario.contrasena1 !== this.usuario.contrasena2) {
+      this.mostrarAlerta('Las contraseñas no coinciden.');
+      return;
+    }
+    if (!/^\d{4}$/.test(this.usuario.contrasena1)) {
+      this.mostrarAlerta('La contraseña debe ser de exactamente 4 números.');
+      return;
+    }
+    // Validación de teléfono (opcional)
+    if (this.usuario.telefono) {
+      this.usuario.telefono = this.usuario.telefono.replace(/\s+/g, '');
+    }
+    if (this.usuario.telefono && !/^\d{9}$/.test(this.usuario.telefono)) {
+      this.mostrarAlerta('El teléfono debe tener 9 dígitos.');
+      return;
+    }
     // Si pasa validaciones
     this.mostrarToast('¡Registro exitoso!');
+    localStorage.setItem('nombreUsuario', this.usuario.nombre);
     this.router.navigate(['/login'], { state: { email: this.usuario.email } });
   }
 

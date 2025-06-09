@@ -162,3 +162,40 @@ html, body, ion-app {
 ion-content {
   overflow-y: auto;
 }
+
+
+ion-toolbar {
+  position: relative;
+  overflow: hidden;
+}
+
+.pantera-banner {
+  position: absolute;
+  top: 0;
+  left: -30vw; // Empieza fuera de la pantalla
+  height: 100%;
+  width: 30vw;
+  min-width: 200px;
+  max-width: 400px;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 0;
+  animation: pantera-move 20s linear infinite;
+}
+
+@keyframes pantera-move {
+  0% {
+    left: -30vw;
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    left: 100vw;
+    opacity: 0;
+  }
+}

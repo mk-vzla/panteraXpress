@@ -1,5 +1,6 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
+    <img src="assets/images/panteraxxx.png" class="pantera-banner" alt="Pantera" />
     <ion-buttons slot="start">
       <ion-menu-button autoHide="false"></ion-menu-button>
     </ion-buttons>
@@ -38,8 +39,7 @@
 
     <div *ngIf="mensajeError" class="mensaje-error">{{ mensajeError }}</div>
 
-    <button mat-stroked-button color="primary" (click)="buscarBuses()" class="boton-buscar"
-      [disabled]="!fecha">
+    <button mat-stroked-button color="primary" (click)="buscarBuses()" class="boton-buscar" [disabled]="!fecha">
       Buscar
     </button>
   </mat-card>
@@ -80,26 +80,17 @@
   <mat-card class="home-card salidas-card" *ngIf="mostrarResultados && resultados.length === 1">
     <h2 class="resultados-titulo">Selecciona una salida</h2>
     <div class="salidas-row">
-      <button mat-raised-button
-              color="primary"
-              class="salida-btn"
-              *ngFor="let salida of salidasDisponibles()"
-              [class.selected]="salida === salidaSeleccionada"
-              (click)="seleccionarSalida(salida)">
+      <button mat-raised-button color="primary" class="salida-btn" *ngFor="let salida of salidasDisponibles()"
+        [class.selected]="salida === salidaSeleccionada" (click)="seleccionarSalida(salida)">
         {{ salida }}
       </button>
     </div>
     <div *ngIf="salidasDisponibles().length > 0" class="salida-seleccionada">
-      <button mat-raised-button color="accent" class="continuar-btn"
-        (click)="irASeleccionAsiento()"
+      <button mat-raised-button color="accent" class="continuar-btn" (click)="irASeleccionAsiento()"
         [disabled]="!salidaSeleccionada">
         Continuar
       </button>
     </div>
   </mat-card>
 
-
-
-
 </ion-content>
-

@@ -1,5 +1,6 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
+    <img src="assets/images/panteraxxx.png" class="pantera-banner" alt="Pantera" />
     <ion-buttons slot="start">
       <!-- <ion-menu-button autoHide="false"></ion-menu-button> -->
     </ion-buttons>
@@ -33,9 +34,17 @@
         <mat-label>Email</mat-label>
         <input matInput [(ngModel)]="usuario.email" name="email" required>
       </mat-form-field>
+            <mat-form-field appearance="fill" class="login-form-field">
+        <mat-label>Contraseña</mat-label>
+        <input matInput [(ngModel)]="usuario.contrasena1" name="password1" required placeholder="Solo cuatro números" type="password">
+      </mat-form-field>
+            <mat-form-field appearance="fill" class="login-form-field">
+        <mat-label>Confirmar Contraseña</mat-label>
+        <input matInput [(ngModel)]="usuario.contrasena2" name="password2" required type="password">
+      </mat-form-field>
       <mat-form-field appearance="fill" class="login-form-field">
-        <mat-label>Teléfono</mat-label>
-        <input matInput [(ngModel)]="usuario.telefono" name="telefono">
+        <mat-label>Teléfono Celular</mat-label>
+        <input matInput [(ngModel)]="usuario.telefono" name="telefono" placeholder="Ej: 987654321">
       </mat-form-field>
       <mat-slide-toggle class="toggle-slider">Deseo Recibir Ofertas</mat-slide-toggle>
       <button mat-stroked-button color="primary" (click)="registrarUsuario()"

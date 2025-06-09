@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { MenuController } from '@ionic/angular';
+import { Router, NavigationEnd } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -8,7 +9,16 @@ import { MenuController } from '@ionic/angular';
   standalone: false,
 })
 export class AppComponent {
-  constructor(private menu: MenuController) {}
+  usuario: string | null = null;
+
+  constructor(private menu: MenuController, private router: Router) {
+    this.usuario = localStorage.getItem('email');
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        this.usuario = localStorage.getItem('email');
+      }
+    });
+  }
 
   cerrarMenu() {
     this.menu.close();

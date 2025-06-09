@@ -12,7 +12,7 @@ export class LoginPage implements OnInit {
 
   email: string = '';
   password: string = '';
-  toggleSeleccion: string = 'login'; // <-- Añadido para activar "Ingresar" por defecto
+  toggleSeleccion: string = 'login'; // <-- Añadido para activar Ingresar por defecto
 
   constructor(
     private router: Router,
@@ -60,14 +60,15 @@ export class LoginPage implements OnInit {
     }
     // Si las validaciones están bien, conectarse
     console.log('CONECTANDO:', this.email);
-    await this.mostrarToast('¡Conexión exitosa!');
+    await this.mostrarToast('Conexión exitosa: '+ this.email);
+    localStorage.setItem('email', this.email);
     this.router.navigate(['/home'], { state: { email: this.email } });
   }
 
-  // Método para no conectarse, solo mostrar en consola
-  noConectarseLogin() {
-    console.log('NO CONECTANDO, MOSTRANDO EN CONSOLA');
-  }
+  // // Método para no conectarse, solo mostrar en consola
+  // noConectarseLogin() {
+  //   console.log('NO CONECTANDO, MOSTRANDO EN CONSOLA');
+  // }
 
   // Método para cambiar entre "Ingresar" y "Registrarse"
   irARegistro() {

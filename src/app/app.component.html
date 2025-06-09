@@ -2,28 +2,28 @@
   <div class="fixed-background"></div>
   <ion-menu side="start" contentId="menu-menu" menuID="main-menu">
     <ion-header>
-      <ion-toolbar >
+      <ion-toolbar>
         <ion-title>Menu</ion-title>
       </ion-toolbar>
     </ion-header>
 
     <ion-content>
       <ion-list>
+        <ion-item *ngIf="usuario">
+          <ion-icon name="person-circle" slot="start"></ion-icon>
+          {{ usuario }}
+        </ion-item>
         <ion-item button routerLink="/home" (click)="cerrarMenu()">
           <ion-icon slot="start" name="home"></ion-icon>
           Home
         </ion-item>
-        <!-- <ion-item button routerLink="/about">
-          <ion-icon slot="start" name="information-circle"></ion-icon>
-          Acerca de nosotros
-        </ion-item>
-        <ion-item button routerLink="/contact">
-          <ion-icon slot="start" name="mail"></ion-icon>
-          Contacto
-        </ion-item> -->
         <ion-item button routerLink="/indicaciones" (click)="cerrarMenu()">
           <ion-icon slot="start" name="checkbox-outline"></ion-icon>
           Indicaciones
+        </ion-item>
+        <ion-item button href="tel:999999999" (click)="cerrarMenu()">
+          <ion-icon slot="start" name="logo-whatsapp"></ion-icon>
+          Contáctanos
         </ion-item>
         <ion-item button routerLink="/login" (click)="cerrarMenu()">
           <ion-icon name="log-out-outline"></ion-icon>
