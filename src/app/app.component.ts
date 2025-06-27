@@ -32,4 +32,12 @@ export class AppComponent {
       document.activeElement.blur();
     }
   }
+
+  exitNow(): void {
+    if (document.activeElement instanceof HTMLElement) {
+      document.activeElement.blur();
+    }
+    this.menu.close();
+    localStorage.removeItem('email');
+  }
 }
