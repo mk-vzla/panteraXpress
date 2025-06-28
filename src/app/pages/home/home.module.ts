@@ -8,7 +8,9 @@ import { HomePageRoutingModule } from './home-routing.module';
 
 import { MaterialModule } from '../../material.module';
 import { SharedModule } from '../../shared/shared.module';
-
+import { BuscarComponent } from '../../components/home/buscar/buscar.component';
+import { AsientoComponent } from '../../components/home/asiento/asiento.component';
+import { ResumenComponent } from '../../components/home/resumen/resumen.component';
 
 @NgModule({
   imports: [
@@ -19,7 +21,7 @@ import { SharedModule } from '../../shared/shared.module';
     MaterialModule,
     SharedModule  
   ],
-  declarations: [HomePage],
+  declarations: [HomePage, BuscarComponent, AsientoComponent, ResumenComponent],
   exports: [
     
   ]

@@ -1,0 +1,79 @@
+<!-- TARJETA DE BÚSQUEDA -->
+  <mat-card class="home-card search-card">
+    <h1>Buscar Pasajes</h1>
+
+    <mat-form-field appearance="fill" class="home-form-field">
+      <mat-select id="origen" [(ngModel)]="origen" (selectionChange)="actualizarDestinos()">
+        <mat-option *ngFor="let o of listaOrigenes" [value]="o">{{ o }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="home-form-field">
+      <mat-select id="destino" [(ngModel)]="destino">
+        <mat-option *ngFor="let d of listaDestinos" [value]="d" [disabled]="d === origen">
+          {{ d }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="home-form-field">
+      <mat-label>Fecha</mat-label>
+      <input matInput [matDatepicker]="picker" [(ngModel)]="fecha" [min]="fechaMinima">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+
+    <div *ngIf="mensajeError" class="mensaje-error">{{ mensajeError }}</div>
+    <button mat-stroked-button color="primary" (click)="buscarBuses()" class="boton-buscar" [disabled]="!fecha">
+      Buscar
+    </button>
+  </mat-card>
+
+
+  <!-- TARJETA DE RESULTADOS -->
+  <mat-card class="home-card resultados-card" *ngIf="mostrarResultados">
+    <!-- <h2 class="resultados-titulo">Ruta Seleccionada</h2> -->
+    <div *ngIf="resultados.length > 0">
+      <div class="resultado-list">
+        <div *ngFor="let ruta of resultados" class="resultado-item">
+          <div class="resultado-ciudades">
+            <strong>{{ ruta.origen }}</strong>
+            <span class="flecha">→</span>
+            <strong>{{ ruta.destino }}</strong>
+          </div>
+          <div class="fecha-seleccionada" *ngIf="fecha">
+            <strong>Fecha:</strong> {{ fecha | formatearFecha }}
+          </div>
+          <div class="resultado-detalle">
+            <span>Duración: {{ ruta.duracion }}</span>
+          </div>
+          <div class="resultado-precio">
+            <span>Precio: {{ ruta.precio }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </mat-card>
+
+
+  <!-- TARJETA DE SELECCIÓN DE SALIDA -->
+  <mat-card class="home-card salidas-card" *ngIf="mostrarResultados && resultados.length === 1">
+    <h2 class="resultados-titulo">
+      {{ salidasDisponibles().length > 0 ? 'Seleccione una salida' : 'No hay buses disponibles para la fecha
+      seleccionada' }}
+    </h2>
+    <div class="salidas-row" *ngIf="salidasDisponibles().length > 0">
+      <button mat-raised-button color="primary" class="salida-btn" *ngFor="let salida of salidasDisponibles()"
+        [class.selected]="salida === salidaSeleccionada" (click)="seleccionarSalida(salida)">
+        {{ salida }}
+      </button>
+    </div>
+    <div *ngIf="salidasDisponibles().length > 0" class="salida-seleccionada">
+      <button mat-raised-button color="accent" class="continuar-btn" (click)="irASeleccionAsiento()"
+        [disabled]="!salidaSeleccionada">
+        Continuar
+      </button>
+    </div>
+  </mat-card>
+

@@ -88,7 +88,7 @@ ion-content {
 /* SALIDAS */
 .salidas-card {
   padding-top: 8px;
-  margin-bottom: 500px !important;
+  margin-bottom: 400px !important;
 }
 
 .salidas-row {
@@ -158,17 +158,14 @@ ion-content {
   flex-direction: column;
   align-items: center;
   position: fixed;
-  bottom: 100px;
-  /* Ancla 100px desde abajo */
-  right: 2px;
-  /* Margen derecho reducido para móvil */
+  bottom: 100px;      /* Ancla 100px desde abajo */
+  right: 5px;        /* Margen derecho reducido para móvil */
   z-index: 1000;
 }
 
 /* ESTILO PANTERA SEGMENT */
 .pantera-segment {
-  background: rgba(34, 34, 34, 0.95);
-  /* Negro carbón con opacidad */
+  background: rgba(34, 34, 34, 0.95); /* Negro carbón con opacidad */
   border-radius: 16px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
   padding: 8px 4px;
@@ -178,8 +175,7 @@ ion-content {
 .vertical-segment ion-segment-button {
   margin: 4px 0;
   background: transparent;
-  --color-checked: #A67C00;
-  /* Dorado envejecido al seleccionar */
+  --color-checked: #A67C00; /* Dorado envejecido al seleccionar */
 }
 
 /* COMPACTAR LOS BOTONES */
@@ -202,47 +198,10 @@ ion-content {
 /* ÍCONOS */
 .compact-segment ion-icon {
   font-size: 2.2em;
-  color: #A67C00;
-  /* Dorado envejecido */
+  color: #A67C00; /* Dorado envejecido */
   transition: color 0.3s;
 }
 
 .compact-segment ion-segment-button.ion-activated ion-icon {
-  color: #FFD700;
-  /* Más dorado al estar seleccionado */
-}
-
-/* BOTÓN VOLVER FLOTANTE */
-.boton-volver-flotante {
-  position: fixed;
-  right: 3px;
-  z-index: 1001;
-  background: rgba(34, 34, 34, 0.95);
-  color: #A67C00;
-  border: none;
-  border-radius: 10%;
-  width: 55px;
-  height: 55px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-  justify-content: center;
-  font-size: 1.5em;
-  cursor: pointer;
-  transition: none;
-  outline: none;
-}
-
-.boton-volver-flotante ion-icon {
-  color: #A67C00;
-  font-size: 40px;
-  transition: none;
-}
-
-.vertical-button-back {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  position: fixed;
-  bottom: 370px;
-  /* Ancla 100px desde abajo */
-  z-index: 1000;
+  color: #FFD700; /* Más dorado al estar seleccionado */
 }

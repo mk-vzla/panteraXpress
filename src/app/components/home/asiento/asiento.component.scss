@@ -1,0 +1,140 @@
+ion-content {
+  background: transparent !important;
+  height: 100vh;
+  min-height: 100vh;
+    max-height: none;
+  overflow-y: auto !important;
+  --overflow: auto !important;
+  display: flex;
+  flex-direction: column;
+}
+
+.home-card {
+  background-color: #2c3e50;
+  max-width: 300px;
+  width: 92vw;
+  //max-width: 480px;
+  margin: 24px auto 20px auto;
+  border-radius: 16px;
+  box-shadow: 0 2px 8px #00000033;
+  // display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  /* Elimina la restricción de altura máxima y el scroll interno */
+  margin-bottom: 400px !important;
+  
+}
+
+.resultados-titulo {
+  color: #A67C00;
+  margin-top: 16px;
+}
+
+.bus-grid {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 24px 0;
+}
+
+.fila {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-bottom: 12px;
+}
+
+.espacio {
+  width: 32px;
+}
+
+.asiento-btn {
+  width: 40px;
+  height: 40px;
+  margin: 0 6px;
+  border-radius: 8px;
+  border: 2px solid #A67C00;
+  background: #2C3E50;
+  color: #fff;
+  font-weight: bold;
+  font-size: 1.1em;
+  transition: background 0.2s, color 0.2s, border 0.2s;
+}
+
+.asiento-btn.selected,
+.asiento-btn:focus {
+  background: #A67C00;
+  color: #222222;
+  border-color: #5E2129;
+}
+
+.asiento-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.asiento-seleccionado {
+  margin-top: 24px;
+  text-align: center;
+  color: #A67C00;
+  font-weight: bold;
+}
+
+.resumen-detalles {
+  width: 95%;
+  //max-width: 280px; // Aproximadamente el ancho de "Selecciona tu asiento" + márgenes
+  margin: 16px auto 20px auto;
+  background-color: #222222;
+  border: 2px solid #A67C00;
+  border-radius: 12px;
+  color: #fff;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 8px 12px;
+  padding: 10px 8px;
+  font-size: 0.85em;
+  box-shadow: 0 2px 8px rgba(166, 124, 0, 0.08);
+  line-height: 1.1;
+}
+
+.resumen-detalles-center {
+  text-align: center;
+}
+
+.resumen-detalles span {
+  flex: 1 1 45%;
+  min-width: 120px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 0.85em;
+  line-height: 1.1;
+}
+
+.continuar-btn-container {
+  margin: 16px 0;
+  width: 100%;
+  text-align: center;
+}
+
+.continuar-btn {
+  display: inline-block;
+  background-color: #a67c00 !important;
+  color: #222222 !important;
+  border: 2px solid #5e2129 !important;
+  font-weight: bold;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px #22222233;
+  transition: 0.2s;
+}
+
+.continuar-btn:disabled {
+  background-color: #222222 !important;
+  color: #fff !important;
+  border: 2px solid #3E3E3E !important;
+  opacity: 0.7;
+  cursor: not-allowed;
+  box-shadow: none;
+}
