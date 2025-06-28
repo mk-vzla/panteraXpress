@@ -31,22 +31,15 @@
 
   <div [ngSwitch]="segmentoSeleccionado">
     <ng-container *ngSwitchCase="'tickets'">
-      <app-buscar *ngIf="!mostrarSelectorAsiento && !mostrarResumen" (continuarSeleccion)="onContinuarSeleccion($event)"></app-buscar>
-      <app-asiento *ngIf="mostrarSelectorAsiento && !mostrarResumen"
-        [origen]="datosSeleccionados?.origen"
-        [destino]="datosSeleccionados?.destino"
-        [fecha]="datosSeleccionados?.fecha"
-        [salida]="datosSeleccionados?.salida"
-        (continuarResumen)="onContinuarResumen($event)">
+      <app-buscar *ngIf="!mostrarSelectorAsiento && !mostrarResumen"
+        (continuarSeleccion)="onContinuarSeleccion($event)"></app-buscar>
+      <app-asiento *ngIf="mostrarSelectorAsiento && !mostrarResumen" [origen]="datosSeleccionados?.origen"
+        [destino]="datosSeleccionados?.destino" [fecha]="datosSeleccionados?.fecha"
+        [salida]="datosSeleccionados?.salida" (continuarResumen)="onContinuarResumen($event)">
       </app-asiento>
-      <app-resumen *ngIf="mostrarResumen"
-        [origen]="datosResumen?.origen"
-        [destino]="datosResumen?.destino"
-        [duracion]="datosResumen?.duracion"
-        [precio]="datosResumen?.precio"
-        [salida]="datosResumen?.salida"
-        [fecha]="datosResumen?.fecha"
-        [asientosSeleccionados]="datosResumen?.asientos">
+      <app-resumen *ngIf="mostrarResumen" [origen]="datosResumen?.origen" [destino]="datosResumen?.destino"
+        [duracion]="datosResumen?.duracion" [precio]="datosResumen?.precio" [salida]="datosResumen?.salida"
+        [fecha]="datosResumen?.fecha" [asientosSeleccionados]="datosResumen?.asientos">
       </app-resumen>
     </ng-container>
   </div>
