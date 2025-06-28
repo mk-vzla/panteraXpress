@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { AlertController, ToastController } from '@ionic/angular';
 import { Router } from '@angular/router';
 
+import { LocalDBService } from '../../services/local-db.service'; // Importa el servicio de base de datos local
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
@@ -17,7 +19,8 @@ export class LoginPage implements OnInit {
   constructor(
     private router: Router,
     private alertController: AlertController,
-    private toastController: ToastController
+    private toastController: ToastController,
+    private localDBService: LocalDBService // Inyecta el servicio de base de datos local
   ) { }
 
   async mostrarAlerta(mensaje: string) {
@@ -47,7 +50,7 @@ export class LoginPage implements OnInit {
       return;
     }
 
-    const emailRegex = /^[A-Za-z]+$/; // anteriormente: /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
     if (!emailRegex.test(this.email)) {
       this.mostrarAlerta('Por favor, ingresa un email válido.');
       return;
@@ -63,10 +66,22 @@ export class LoginPage implements OnInit {
       document.activeElement.blur();
     }
     // Si las validaciones están bien, conectarse
-    console.log('CONECTANDO:', this.email);
-    await this.mostrarToast('Conexión exitosa: ' + this.email);
-    localStorage.setItem('email', this.email);
-    this.router.navigate(['/home'], { state: { email: this.email } });
+
+    try {
+      const usuario = await this.localDBService.validarUsuario(this.email, this.password);
+      if (usuario) {
+        console.log('CONECTANDO:', this.email);
+        await this.mostrarToast('Conexión exitosa: ' + this.email);
+        localStorage.setItem('email', this.email); // Guarda el email en localStorage
+        this.router.navigate(['/home'], { state: { email: this.email } });
+      } else {
+        this.mostrarAlerta('Usuario o contraseña incorrectos.');
+        this.password = '';
+      }
+    } catch (error) {
+      const errorMsg = (error instanceof Error) ? error.message : String(error);
+      //this.mostrarAlerta('Error al conectarse. ' + errorMsg);
+    }
   }
 
   // // Método para no conectarse, solo mostrar en consola
@@ -85,6 +100,10 @@ export class LoginPage implements OnInit {
     if (navigation?.extras?.state && navigation.extras.state['email']) {
       this.email = navigation.extras.state['email'];
     }
+  }
+
+  onEmailChange(value: string) {
+    this.email = value.toLowerCase();
   }
 
 }

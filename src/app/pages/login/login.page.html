@@ -20,7 +20,7 @@
     <mat-card class="login-card">
       <mat-form-field appearance="fill" class="login-form-field">
         <mat-label>Email</mat-label>
-        <input matInput [(ngModel)]="email" name="email" required autocomplete="email">
+        <input matInput [(ngModel)]="email" name="email" required autocomplete="email" (ngModelChange)="onEmailChange($event)">
       </mat-form-field>
       <mat-form-field appearance="fill" class="login-form-field">
         <mat-label>Contraseña</mat-label>

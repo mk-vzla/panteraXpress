@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { AlertController, ToastController } from '@ionic/angular';
 import { Router } from '@angular/router';
 
+import { LocalDBService } from '../../services/local-db.service'; // Importa el servicio de base de datos local
+
 @Component({
   selector: 'app-registro',
   templateUrl: './registro.page.html',
@@ -25,7 +27,8 @@ export class RegistroPage implements OnInit {
   constructor(
     private router: Router,
     private alertController: AlertController,
-    private toastController: ToastController
+    private toastController: ToastController,
+    private localDBService: LocalDBService // Inyecta el servicio de base de datos local
   ) { }
 
   // Método para mostrar una alerta genérica
@@ -100,9 +103,25 @@ export class RegistroPage implements OnInit {
       return;
     }
     // Si pasa validaciones
-    this.mostrarToast('¡Registro exitoso!');
-    localStorage.setItem('nombreUsuario', this.usuario.nombre);
-    this.router.navigate(['/login'], { state: { email: this.usuario.email } });
+
+    try {
+      this.localDBService.insertarUsuario(
+        this.usuario.nombre,
+        this.usuario.apellido,
+        this.usuario.rut,
+        this.usuario.email,
+        this.usuario.contrasena1,
+        this.usuario.telefono,
+      );
+      localStorage.setItem('nombreUsuario', this.usuario.nombre.toLowerCase());  // USO DE LOCALSTORAGE PARA GUARDAR NOMBRE DE USUARIO EN MINÚSCULAS
+      this.router.navigate(['/login'], { state: { email: this.usuario.email } });
+    } catch (error) {
+      this.mostrarAlerta('Error al registrar el usuario. Por favor, inténtalo de nuevo.');
+    }
+  }
+
+  onEmailChange(value: string) {
+    this.usuario.email = value.toLowerCase();
   }
 
   ngOnInit() {
@@ -113,7 +132,5 @@ export class RegistroPage implements OnInit {
   irALogin() {
     this.router.navigate(['/login']).then(() => { location.reload(); });
   }
-
-
 
 }

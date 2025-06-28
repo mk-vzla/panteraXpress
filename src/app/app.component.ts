@@ -3,6 +3,8 @@ import { MenuController } from '@ionic/angular';
 import { Router, NavigationEnd } from '@angular/router';
 import { ToastController } from '@ionic/angular';
 
+import { LocalDBService } from './services/local-db.service';
+
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
@@ -12,7 +14,9 @@ import { ToastController } from '@ionic/angular';
 export class AppComponent {
   usuario: string | null = null;
 
-  constructor(private menu: MenuController, private router: Router, private toastController: ToastController) {
+  constructor(private menu: MenuController, private router: Router, private toastController: ToastController
+    , private localDBService: LocalDBService // Inyecta el servicio de base de datos local
+  ) {
     this.usuario = localStorage.getItem('email');
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
