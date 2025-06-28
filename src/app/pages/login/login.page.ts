@@ -47,7 +47,7 @@ export class LoginPage implements OnInit {
       return;
     }
 
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const emailRegex = /^[A-Za-z]+$/; // anteriormente: /^[^\s@]+@[^\s@]+\.[^\s@]+$/
     if (!emailRegex.test(this.email)) {
       this.mostrarAlerta('Por favor, ingresa un email válido.');
       return;
