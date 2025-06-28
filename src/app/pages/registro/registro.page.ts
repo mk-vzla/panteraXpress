@@ -80,6 +80,7 @@ export class RegistroPage implements OnInit {
       this.mostrarAlerta('El RUT debe tener el formato 12345678-9');
       return;
     }
+    this.usuario.email = this.usuario.email.trim();
     // Validación simple de email
     if (!/^[^@]+@[^@]+\.[a-zA-Z]{2,}$/.test(this.usuario.email)) {
       this.mostrarAlerta('El email no es válido.');
@@ -102,8 +103,8 @@ export class RegistroPage implements OnInit {
       this.mostrarAlerta('El teléfono debe tener 9 dígitos.');
       return;
     }
+    
     // Si pasa validaciones
-
     try {
       this.localDBService.insertarUsuario(
         this.usuario.nombre,

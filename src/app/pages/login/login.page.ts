@@ -46,11 +46,12 @@ export class LoginPage implements OnInit {
   // Método para cambiar entre "Ingresar" y "Registrarse"
   async conectarseLogin() {
     if (!this.email || !this.password) {
-      this.mostrarAlerta('Por favor, completa todos los campos.');
+      this.mostrarToast('Por favor, completa todos los campos.');
       return;
     }
 
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    this.email = this.email.trim();
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(this.email)) {
       this.mostrarAlerta('Por favor, ingresa un email válido.');
       return;
@@ -75,12 +76,12 @@ export class LoginPage implements OnInit {
         localStorage.setItem('email', this.email); // Guarda el email en localStorage
         this.router.navigate(['/home'], { state: { email: this.email } });
       } else {
-        this.mostrarAlerta('Usuario o contraseña incorrectos.');
+        //this.mostrarAlerta('Usuario o contraseña incorrectos.');
         this.password = '';
       }
     } catch (error) {
       const errorMsg = (error instanceof Error) ? error.message : String(error);
-      //this.mostrarAlerta('Error al conectarse. ' + errorMsg);
+      this.mostrarAlerta('Error al conectarse. ' + errorMsg);
     }
   }
 
