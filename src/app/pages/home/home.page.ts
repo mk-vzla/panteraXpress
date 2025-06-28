@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { BusRutasService, RutaBus } from '../../services/bus-rutas.service';
+import { IonContent } from '@ionic/angular';
 
 @Component({
   selector: 'app-home',
@@ -9,6 +10,7 @@ import { BusRutasService, RutaBus } from '../../services/bus-rutas.service';
   standalone: false
 })
 export class HomePage {
+  @ViewChild('topRef', { static: false }) ionContent?: IonContent;
 
   // Segmento seleccionado para navegación
   segmentoSeleccionado = 'tickets';
@@ -145,25 +147,31 @@ export class HomePage {
     return salidas;
   }
 
+  // Método para navegar a la página de selección de asiento con los datos seleccionados
   onContinuarSeleccion(datos: any) {
     this.datosSeleccionados = datos;
     this.mostrarSelectorAsiento = true;
+    setTimeout(() => this.ionContent?.scrollToTop(300), 0);
   }
-
+  // Método para navegar a la página de resumen con los datos seleccionados
   onContinuarResumen(datos: any) {
     this.datosResumen = datos;
     this.mostrarResumen = true;
     this.mostrarSelectorAsiento = false;
+    setTimeout(() => this.ionContent?.scrollToTop(300), 0);
   }
 
+  // Método para retroceder en el flujo de navegación
   retrocederFlujo() {
     if (this.mostrarResumen) {
       this.mostrarResumen = false;
       this.mostrarSelectorAsiento = true;
       this.datosResumen = null;
+      setTimeout(() => this.ionContent?.scrollToTop(300), 0);
     } else if (this.mostrarSelectorAsiento) {
       this.mostrarSelectorAsiento = false;
       this.datosSeleccionados = null;
+      setTimeout(() => this.ionContent?.scrollToTop(300), 0);
     }
   }
 }
