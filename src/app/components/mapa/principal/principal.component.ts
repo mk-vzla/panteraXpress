@@ -1,9 +1,7 @@
 import { Component, AfterViewInit } from '@angular/core';
 import * as L from 'leaflet';
 import { MapasService } from '../../../services/mapas-service.service';
-
-console.log(MapasService);
-
+import { TerminalesService } from '../../../services/terminales.service';
 
 @Component({
   selector: 'app-principal',
@@ -12,65 +10,122 @@ console.log(MapasService);
   standalone: false
 })
 export class PrincipalComponent implements AfterViewInit {
-  private map!: L.Map;
-  private busMarker?: L.Marker;
+  private map!: L.Map;                  // Referencia al mapa Leaflet
+  private busMarker?: L.Marker;         // Marcador del bus en tiempo real
+  private rutaPolyline?: L.Polyline;    // Línea que muestra la ruta en el mapa
+  private etaPopup?: L.Popup;           // Popup que muestra ETA sobre el destino
 
-  constructor(private mapasService: MapasService) {}
+  private destino = 'Arica';            // Destino actual (puedes modificar dinámicamente más adelante)
+  private coordDestino: [number, number] | null = null; // Coordenadas del destino
+
+  constructor(
+    private mapasService: MapasService,          // Servicio para ubicación y cálculo de rutas
+    private terminalesService: TerminalesService // Servicio para obtener coordenadas de terminales
+  ) { }
 
   async ngAfterViewInit() {
-    const latInicial = -33.45;
-    const lngInicial = -70.66;
-    const zoomInicial = 15;
+    const latInicial = -33.45694; // Latitud inicial (Santiago)
+    const lngInicial = -70.64827; // Longitud inicial (Santiago)
+    const zoomInicial = 6;         // Zoom inicial del mapa
 
-    // Inicializar el mapa y guardarlo en la propiedad
-    this.map = new L.Map('map').setView([latInicial, lngInicial], zoomInicial);
+    // Inicializamos el mapa con OpenStreetMap
+    this.map = L.map('map').setView([latInicial, lngInicial], zoomInicial);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '&copy; OpenStreetMap'
     }).addTo(this.map);
 
+    // Forzar redibujado para prevenir errores de tamaño
     setTimeout(() => {
       this.map.invalidateSize();
     }, 300);
 
-    // Creamos un ícono de bus
+    const origen = 'Santiago'; // Ciudad de origen de la ruta
+    this.coordDestino = this.terminalesService.getCoordenadas(this.destino); // Coordenadas del destino
+    const coordOrigen = this.terminalesService.getCoordenadas(origen);       // Coordenadas del origen
+
+    // Si existen las coordenadas de origen y destino, calculamos y dibujamos la ruta
+    if (coordOrigen && this.coordDestino) {
+      const ruta = await this.mapasService.calcularRuta(coordOrigen, this.coordDestino);
+      const coords = this.decodePolyline(ruta.geometry); // Decodificamos polyline de OSRM
+      this.rutaPolyline = L.polyline(coords, { color: 'blue', weight: 4 }).addTo(this.map); // Dibujamos la línea
+      this.map.fitBounds(this.rutaPolyline.getBounds()); // Ajustamos vista para mostrar toda la ruta
+    }
+
+    // Configuramos el ícono del bus
     const iconoBus = L.icon({
       iconUrl: 'assets/bus-icon.png',
       iconSize: [32, 32],
       iconAnchor: [16, 32]
     });
-    // Prueba de carga de imagen
-    const img = new Image();
-    img.src = 'assets/bus-icon.png';
-    //img.onload = () => console.log('Ícono de bus cargado correctamente');
-    //img.onerror = () => console.error('No se pudo cargar el ícono de bus: assets/bus-icon.png');
 
-    // Usar watch para ubicación en tiempo real
-    this.mapasService.obtenerWatch((pos: any) => {
-      console.log('Posición recibida en watch:', pos);
-      if (pos && pos.coords) {
+    // Creamos un popup vacío en el destino para mostrar el ETA
+    this.etaPopup = L.popup({ autoClose: false, closeOnClick: false }).setLatLng(this.coordDestino!).addTo(this.map);
+
+    // Iniciamos seguimiento en tiempo real usando el GPS del dispositivo
+    this.mapasService.obtenerWatch(async (pos: any) => {
+      if (pos && pos.coords && this.coordDestino) {
         const lat = pos.coords.latitude;
         const lng = pos.coords.longitude;
-        console.log('Intentando crear/actualizar marcador en:', lat, lng);
+
+        // Si el marcador del bus ya existe, actualizamos su posición, de lo contrario lo creamos
         if (this.busMarker) {
           this.busMarker.setLatLng([lat, lng]);
         } else {
-          try {
-            if (img.complete && img.naturalWidth === 0) {
-              this.busMarker = L.marker([lat, lng])
-                .addTo(this.map);
-            } else {
-              this.busMarker = L.marker([lat, lng], { icon: iconoBus })
-                .addTo(this.map);
-            }
-            console.log('Marcador creado correctamente');
-          } catch (e) {
-            console.error('Error creando el marcador:', e);
-          }
+          this.busMarker = L.marker([lat, lng], { icon: iconoBus }).addTo(this.map);
         }
-        this.map.setView([lat, lng], zoomInicial);
-      } else {
-        console.warn('No se recibió una posición válida:', pos);
+
+        // Centrar en el marcador del bus (opcional)
+        // this.map.setView([lat, lng], zoomInicial); // <-- Quitado para que el mapa no se centre en el bus
+
+        // Calculamos ETA en tiempo real desde la posición actual del bus al destino
+        try {
+          const ruta = await this.mapasService.calcularRuta([lat, lng], this.coordDestino);
+          const duracionHoras = (ruta.duration / 3600); // segundos ➔ horas
+          const horas = Math.floor(duracionHoras);
+          const minutos = Math.round((duracionHoras - horas) * 60);
+
+          // Actualizamos el contenido del popup ETA en el destino
+          if (this.etaPopup) {
+            this.etaPopup
+              .setLatLng(this.coordDestino)
+              .setContent(`Llegada estimada: ${horas}h ${minutos}m`);
+          }
+        } catch (error) {
+          console.error('Error calculando ETA dinámico:', error);
+        }
       }
     });
+  }
+
+  /**
+   * Decodifica un polyline codificado en formato polyline5 (OSRM) a un array de coordenadas
+   * para poder dibujar la ruta en el mapa con Leaflet.
+   */
+  decodePolyline(str: string, precision: number = 5): [number, number][] {
+    let index = 0, lat = 0, lng = 0, coordinates: [number, number][] = [];
+    const factor = Math.pow(10, precision);
+
+    while (index < str.length) {
+      let result = 1, shift = 0, b;
+      do {
+        b = str.charCodeAt(index++) - 63 - 1;
+        result += b << shift;
+        shift += 5;
+      } while (b >= 0x1f);
+      lat += (result & 1) ? ~(result >> 1) : (result >> 1);
+
+      result = 1;
+      shift = 0;
+      do {
+        b = str.charCodeAt(index++) - 63 - 1;
+        result += b << shift;
+        shift += 5;
+      } while (b >= 0x1f);
+      lng += (result & 1) ? ~(result >> 1) : (result >> 1);
+
+      coordinates.push([lat / factor, lng / factor]);
+    }
+
+    return coordinates;
   }
 }
