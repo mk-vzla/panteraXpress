@@ -66,6 +66,17 @@ export class LocalDBService {
       // .then(() => this.mostrarToast('Tabla datos_usuario creada correctamente'))
       .catch(error => this.mostrarToast('Error al crear la tabla datos_usuario'))
       ;
+    // Tabla resumen_viaje
+    this.bd.executeSql(
+      `CREATE TABLE IF NOT EXISTS resumen_viaje (
+        origen TEXT(25),
+        destino TEXT(25),
+        salida TEXT(5),
+        asientos TEXT(100)
+      )`, []
+    )
+      // .then(() => this.mostrarToast('Tabla resumen_viaje creada correctamente'))
+      .catch(error => this.mostrarToast('Error al crear la tabla resumen_viaje'));
   }
 
 

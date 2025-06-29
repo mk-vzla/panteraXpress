@@ -1,4 +1,5 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { LocalDBService } from '../../../services/local-db.service';
 
 @Component({
   selector: 'app-resumen',
@@ -19,9 +20,30 @@ export class ResumenComponent implements OnChanges {
   llegadaFecha: Date = new Date();
   llegadaHora = '';
 
+  constructor(private localDB: LocalDBService) {}
+
   ngOnChanges(changes: SimpleChanges) {
     this.calcularTotal();
     this.calcularLlegada();
+  }
+
+  onPagar() {
+    const confirmado = window.confirm('¿Ha realizado el pago?');
+    if (confirmado) {
+      // Guardar en la BD local
+      this.localDB.bd.executeSql(
+        `INSERT INTO resumen_viaje (origen, destino, salida, asientos) VALUES (?, ?, ?, ?)`,
+        [this.origen, this.destino, this.salida, this.asientosSeleccionados]
+      ).then(() => {
+        this.localDB['mostrarToast']('Resumen de viaje guardado');
+        // Guardar origen y destino en localStorage
+        localStorage.setItem('origenSeleccionado', this.origen);
+        localStorage.setItem('destinoSeleccionado', this.destino);
+      }).catch(err => {
+        this.localDB['mostrarToast']('Error al guardar el resumen de viaje');
+        console.error('Error al guardar resumen_viaje', err);
+      });
+    }
   }
 
   private calcularTotal() {

@@ -12,10 +12,10 @@
   <!-- ION SEGMENT FLOTANTE -->
   <ion-segment class="vertical-segment compact-segment pantera-segment" [(ngModel)]="segmentoSeleccionado">
     <ion-segment-button value="tickets">
-      <ion-icon name="ticket-outline"></ion-icon>
-    </ion-segment-button>
-    <ion-segment-button value="unknown1">
       <ion-icon name="bus-outline"></ion-icon>
+    </ion-segment-button>
+    <ion-segment-button value="resumen">
+      <ion-icon name="ticket-outline"></ion-icon>
     </ion-segment-button>
     <ion-segment-button value="unknown2">
       <ion-icon name="map-outline"></ion-icon>
@@ -42,8 +42,11 @@
         [fecha]="datosResumen?.fecha" [asientosSeleccionados]="datosResumen?.asientos">
       </app-resumen>
     </ng-container>
+    <ng-container *ngSwitchCase="'resumen'">
+      <app-pasajes></app-pasajes>
+    </ng-container>
     <ng-container *ngSwitchCase="'unknown2'">
-      <app-principal></app-principal>
+      <app-principal *ngIf="segmentoSeleccionado === 'unknown2'"></app-principal>
     </ng-container>
   </div>
 

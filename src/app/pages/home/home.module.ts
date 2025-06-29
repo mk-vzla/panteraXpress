@@ -14,6 +14,8 @@ import { ResumenComponent } from '../../components/home/resumen/resumen.componen
 
 import { PrincipalComponent } from '../../components/mapa/principal/principal.component';
 
+import { PasajesComponent } from '../../components/pasajes/pasajes.component';
+
 
 @NgModule({
   imports: [
@@ -24,7 +26,7 @@ import { PrincipalComponent } from '../../components/mapa/principal/principal.co
     MaterialModule,
     SharedModule
   ],
-  declarations: [HomePage, BuscarComponent, AsientoComponent, ResumenComponent, PrincipalComponent],
+  declarations: [HomePage, BuscarComponent, AsientoComponent, ResumenComponent, PrincipalComponent, PasajesComponent],
   exports: [
     
   ]

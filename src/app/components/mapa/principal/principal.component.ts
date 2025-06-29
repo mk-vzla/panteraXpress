@@ -15,7 +15,8 @@ export class PrincipalComponent implements AfterViewInit {
   private rutaPolyline?: L.Polyline;    // Línea que muestra la ruta en el mapa
   private etaPopup?: L.Popup;           // Popup que muestra ETA sobre el destino
 
-  private destino = 'Arica';            // Destino actual (puedes modificar dinámicamente más adelante)
+  private destino = 'Arica';            // Destino actual
+  private origen = 'Santiago';          // Origen actual
   private coordDestino: [number, number] | null = null; // Coordenadas del destino
 
   constructor(
@@ -28,6 +29,12 @@ export class PrincipalComponent implements AfterViewInit {
     const lngInicial = -70.64827; // Longitud inicial (Santiago)
     const zoomInicial = 6;         // Zoom inicial del mapa
 
+    // Leer origen y destino desde localStorage si existen
+    const origenLS = localStorage.getItem('origenSeleccionado');
+    const destinoLS = localStorage.getItem('destinoSeleccionado');
+    if (origenLS) this.origen = origenLS;
+    if (destinoLS) this.destino = destinoLS;
+
     // Inicializamos el mapa con OpenStreetMap
     this.map = L.map('map').setView([latInicial, lngInicial], zoomInicial);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -39,16 +46,16 @@ export class PrincipalComponent implements AfterViewInit {
       this.map.invalidateSize();
     }, 300);
 
-    const origen = 'Santiago'; // Ciudad de origen de la ruta
     this.coordDestino = this.terminalesService.getCoordenadas(this.destino); // Coordenadas del destino
-    const coordOrigen = this.terminalesService.getCoordenadas(origen);       // Coordenadas del origen
+    const coordOrigen = this.terminalesService.getCoordenadas(this.origen);       // Coordenadas del origen
 
     // Si existen las coordenadas de origen y destino, calculamos y dibujamos la ruta
     if (coordOrigen && this.coordDestino) {
       const ruta = await this.mapasService.calcularRuta(coordOrigen, this.coordDestino);
       const coords = this.decodePolyline(ruta.geometry); // Decodificamos polyline de OSRM
       this.rutaPolyline = L.polyline(coords, { color: 'blue', weight: 4 }).addTo(this.map); // Dibujamos la línea
-      this.map.fitBounds(this.rutaPolyline.getBounds()); // Ajustamos vista para mostrar toda la ruta
+      const bounds = this.rutaPolyline.getBounds();
+      this.map.fitBounds(bounds, { maxZoom: 12 }); // Ajustamos vista para mostrar toda la ruta, limitando el zoom máximo
     }
 
     // Configuramos el ícono del bus

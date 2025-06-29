@@ -1,13 +1,13 @@
-  <mat-card class="home-card">
-    <mat-card class="resumen-detalles">
-      <span><strong>Origen:</strong> {{ origen }}</span>
-      <span><strong>Destino:</strong> {{ destino }}</span>
-      <span><strong>Duración:</strong> {{ duracion }}</span>
-      <span><strong>Precio unitario:</strong> {{ precio }}</span>
-      <span><strong>Salida:</strong> {{ fecha | formatearFecha }} {{ salida }}</span>
-      <span><strong>Llegada:</strong> {{ llegadaFecha | formatearFecha }} {{ llegadaHora }}</span>
-      <span><strong>N° Asiento(s):</strong> {{ asientosSeleccionados }}</span>
-      <span><strong>Total a pagar:</strong> {{ totalPagar }}</span>
-    </mat-card>
-    <button mat-raised-button color="primary">Pagar</button>
+<mat-card class="home-card">
+  <mat-card class="resumen-detalles">
+    <span><strong>Origen:</strong> {{ origen }}</span>
+    <span><strong>Destino:</strong> {{ destino }}</span>
+    <span><strong>Duración:</strong> {{ duracion }}</span>
+    <span><strong>Precio unitario:</strong> {{ precio }}</span>
+    <span><strong>Salida:</strong> {{ fecha | formatearFecha }} {{ salida }}</span>
+    <span><strong>Llegada:</strong> {{ llegadaFecha | formatearFecha }} {{ llegadaHora }}</span>
+    <span><strong>N° Asiento(s):</strong> {{ asientosSeleccionados }}</span>
+    <span><strong>Total a pagar:</strong> {{ totalPagar }}</span>
   </mat-card>
+  <button mat-raised-button color="primary" (click)="onPagar()">Pagar</button>
+</mat-card>

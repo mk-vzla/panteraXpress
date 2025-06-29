@@ -1,0 +1,25 @@
+<div class="pasajes-lista">
+  <ng-container *ngFor="let pasaje of pasajes; let i = index">
+    <ng-container *ngIf="i === 1">
+      <div class="viajes-anteriores-separador">
+        <span>v------------ Viajes Anteriores -----------v</span>
+      </div>
+    </ng-container>
+    <mat-card class="home-card">
+      <mat-card class="resumen-detalles">
+        <div class="origen-row">
+          <span><strong>Origen:</strong> {{ pasaje.origen }}</span>
+          <span class="map-btn-wrapper">
+            <button class="map-btn" (click)="guardarOrigenDestino(pasaje)">
+              <ion-icon name="map-outline"></ion-icon>
+            </button>
+          </span>
+        </div>
+        <span><strong>Destino:</strong> {{ pasaje.destino }}</span>
+        <span><strong>Salida:</strong> {{ pasaje.salida }}</span>
+        <span><strong>N° Asiento(s):</strong> {{ pasaje.asientos }}</span>
+      </mat-card>
+    </mat-card>
+  </ng-container>
+  <div *ngIf="!pasajes.length" class="sin-pasajes">No hay pasajes guardados.</div>
+</div>

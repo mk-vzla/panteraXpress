@@ -1,0 +1,95 @@
+.pasajes-lista {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 400px;
+}
+
+.home-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 90%;
+  margin: 10px auto !important;
+  justify-content: center;
+  background-color: #2c3e50;
+}
+
+.resumen-detalles {
+  width: 95%;
+  margin: 16px auto 20px auto;
+  background-color: #222222;
+  border: 2px solid #A67C00;
+  border-radius: 12px;
+  color: #fff;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 8px 12px;
+  padding: 10px 8px;
+  font-size: 1.05em;
+  box-shadow: 0 2px 8px rgba(166, 124, 0, 0.08);
+  line-height: 1.1;
+}
+
+.resumen-detalles span {
+  flex: 1 1 45%;
+  min-width: 120px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 1.05em;
+  line-height: 1.1;
+}
+
+.sin-pasajes {
+  color: #fff;
+  margin-top: 32px;
+  font-size: 1.1em;
+  text-align: center;
+}
+
+.map-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: #A67C00;
+  font-size: 1.5em;
+  margin-left: auto;
+  align-self: flex-end;
+  padding: 4px 8px;
+  transition: color 0.2s;
+}
+
+.map-btn:hover {
+  color: #fff;
+}
+
+.viajes-anteriores-separador {
+  width: 100%;
+  text-align: center;
+  margin: 18px 0 12px 0;
+  background: #e0e0e0;
+  color: #222 !important;
+  font-weight: bold;
+  font-size: 1.08em;
+  letter-spacing: 1px;
+  border-radius: 8px;
+  padding: 6px 0;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+}
+
+.origen-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.map-btn-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex: 1;
+}
