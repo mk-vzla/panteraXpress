@@ -42,5 +42,10 @@
         [fecha]="datosResumen?.fecha" [asientosSeleccionados]="datosResumen?.asientos">
       </app-resumen>
     </ng-container>
+    <ng-container *ngSwitchCase="'unknown2'">
+      <app-principal></app-principal>
+    </ng-container>
   </div>
+
+  <!-- Ejemplo en home.page.html -->
 </ion-content>

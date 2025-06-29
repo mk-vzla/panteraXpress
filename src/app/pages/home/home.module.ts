@@ -12,6 +12,9 @@ import { BuscarComponent } from '../../components/home/buscar/buscar.component';
 import { AsientoComponent } from '../../components/home/asiento/asiento.component';
 import { ResumenComponent } from '../../components/home/resumen/resumen.component';
 
+import { PrincipalComponent } from '../../components/mapa/principal/principal.component';
+
+
 @NgModule({
   imports: [
     CommonModule,
@@ -19,9 +22,9 @@ import { ResumenComponent } from '../../components/home/resumen/resumen.componen
     IonicModule,
     HomePageRoutingModule,
     MaterialModule,
-    SharedModule  
+    SharedModule
   ],
-  declarations: [HomePage, BuscarComponent, AsientoComponent, ResumenComponent],
+  declarations: [HomePage, BuscarComponent, AsientoComponent, ResumenComponent, PrincipalComponent],
   exports: [
     
   ]
