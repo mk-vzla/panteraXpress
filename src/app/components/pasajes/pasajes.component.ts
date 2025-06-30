@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChildren, ElementRef, QueryList } from '@angular/core';
+import { Component, OnInit, ViewChildren, ElementRef, QueryList, Output, EventEmitter } from '@angular/core';
 import { LocalDBService } from '../../services/local-db.service';
 import * as QRCode from 'qrcode-generator';
 
@@ -14,6 +14,8 @@ export class PasajesComponent implements OnInit {
   modalQRVisible = false;
   pasajeQR: any = null;
   pasajeQRIndex: number | null = null;
+
+  @Output() irAMapa = new EventEmitter<{origen: string, destino: string}>();
 
   constructor(private localDB: LocalDBService) { }
 
@@ -36,6 +38,7 @@ export class PasajesComponent implements OnInit {
   guardarOrigenDestino(pasaje: any) {
     localStorage.setItem('origenSeleccionado', pasaje.origen);
     localStorage.setItem('destinoSeleccionado', pasaje.destino);
+    this.irAMapa.emit({origen: pasaje.origen, destino: pasaje.destino});
   }
 
   mostrarQRModal(pasaje: any, index: number) {

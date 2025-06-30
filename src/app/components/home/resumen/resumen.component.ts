@@ -36,9 +36,25 @@ export class ResumenComponent implements OnChanges {
         return chars.charAt(Math.floor(Math.random() * chars.length));
       }).join('');
       // Guardar en la BD local
+      // salida: fecha y hora en formato 'dd/mmm/yyyy HH:mm'
+      let salidaCompleta = '';
+      if (this.fecha && this.salida) {
+        const [hora, minuto] = this.salida.split(':').map(Number);
+        const fechaSalida = new Date(this.fecha);
+        fechaSalida.setHours(hora, minuto, 0, 0);
+        const dia = String(fechaSalida.getDate()).padStart(2, '0');
+        const meses = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'];
+        const mes = meses[fechaSalida.getMonth()];
+        const anio = fechaSalida.getFullYear();
+        const horaStr = String(fechaSalida.getHours()).padStart(2, '0');
+        const minStr = String(fechaSalida.getMinutes()).padStart(2, '0');
+        salidaCompleta = `${dia}/${mes}/${anio} ${horaStr}:${minStr}`;
+      } else {
+        salidaCompleta = this.salida;
+      }
       this.localDB.bd.executeSql(
         `INSERT INTO resumen_viaje (id_pasaje, origen, destino, salida, asientos) VALUES (?, ?, ?, ?, ?)`,
-        [id_pasaje, this.origen, this.destino, this.salida, this.asientosSeleccionados]
+        [id_pasaje, this.origen, this.destino, salidaCompleta, this.asientosSeleccionados]
       ).then(() => {
         this.localDB['mostrarToast']('COMPRA REALIZADA CON ÉXITO');
         // Guardar origen y destino en localStorage

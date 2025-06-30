@@ -43,7 +43,7 @@
       </app-resumen>
     </ng-container>
     <ng-container *ngSwitchCase="'resumen'">
-      <app-pasajes></app-pasajes>
+      <app-pasajes (irAMapa)="onIrAMapa($event)"></app-pasajes>
     </ng-container>
     <ng-container *ngSwitchCase="'unknown2'">
       <app-principal *ngIf="segmentoSeleccionado === 'unknown2'"></app-principal>

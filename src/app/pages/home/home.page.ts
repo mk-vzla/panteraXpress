@@ -163,7 +163,7 @@ export class HomePage {
     this.mostrarSelectorAsiento = true;
     setTimeout(() => this.ionContent?.scrollToTop(300), 0);
   }
-  // Método para navegar a la página de resumen con los datos seleccionados
+  // Método para navegar a la página de resumen with los datos seleccionados
   onContinuarResumen(datos: any) {
     this.datosResumen = datos;
     this.mostrarResumen = true;
@@ -182,6 +182,15 @@ export class HomePage {
       this.mostrarSelectorAsiento = false;
       this.datosSeleccionados = null;
       setTimeout(() => this.ionContent?.scrollToTop(300), 0);
-    }
+    } 
+  }
+
+  // Maneja el evento emitido por PasajesComponent para abrir el mapa/principal
+  onIrAMapa(event: {origen: string, destino: string}) {
+    // Cambia el segmento para mostrar el componente de mapas/principal
+    this.segmentoSeleccionado = 'unknown2';
+    // Si quieres pasar origen/destino al mapa, puedes usar localStorage o un servicio compartido
+    localStorage.setItem('origenSeleccionado', event.origen);
+    localStorage.setItem('destinoSeleccionado', event.destino);
   }
 }

@@ -54,15 +54,20 @@ export class LocalDBService {
       // .then(() => this.mostrarToast('Tabla datos_usuario creada correctamente'))
       .catch(error => this.mostrarToast('Error al crear la tabla datos_usuario'));
 
-    // Tabla sesion_data: user_email_session es PRIMARY KEY y FOREIGN KEY de datos_usuario.usuario_email
+    // Eliminar la tabla sesion_data si existe (solo para desarrollo, cuidado en producción)
     this.bd.executeSql(
-      `CREATE TABLE IF NOT EXISTS sesion_data (
-        user_email_session TEXT(30) PRIMARY KEY,
-        active_session INTEGER(1) DEFAULT 0 NOT NULL
-      )`, []
-    )
+      `DROP TABLE IF EXISTS sesion_data`, []
+    ).then(() => {
+      // Crear la tabla sesion_data nuevamente
+      this.bd.executeSql(
+        `CREATE TABLE IF NOT EXISTS sesion_data (
+          user_email_session TEXT(30) PRIMARY KEY,
+          active_session INTEGER(1) DEFAULT 0 NOT NULL
+        )`, []
+      )
       //.then(() => this.mostrarToast('Tabla sesion_data creada correctamente'))
       .catch(error => this.mostrarToast('Error al crear la tabla sesion_data'));
+    }).catch(error => this.mostrarToast('Error al eliminar la tabla sesion_data'));
 
     // Tabla resumen_viaje
     this.bd.executeSql(
@@ -70,7 +75,7 @@ export class LocalDBService {
         id_pasaje TEXT PRIMARY KEY,
         origen TEXT(25),
         destino TEXT(25),
-        salida TEXT(5),
+        salida TEXT(30),
         asientos TEXT(100)
       )`, []
     )
