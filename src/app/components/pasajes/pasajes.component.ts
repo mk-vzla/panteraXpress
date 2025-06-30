@@ -31,13 +31,5 @@ export class PasajesComponent implements OnInit {
   guardarOrigenDestino(pasaje: any) {
     localStorage.setItem('origenSeleccionado', pasaje.origen);
     localStorage.setItem('destinoSeleccionado', pasaje.destino);
-    // Cambiar segmento a 'unknown2' para mostrar el mapa
-    const home = window as any;
-    if (home && home.angularComponentRef && home.angularComponentRef.segmentoSeleccionado !== undefined) {
-      home.angularComponentRef.segmentoSeleccionado = 'unknown2';
-    } else {
-      // Alternativa: emitir un evento personalizado
-      window.dispatchEvent(new CustomEvent('abrirMapaSegmento'));
-    }
   }
 }

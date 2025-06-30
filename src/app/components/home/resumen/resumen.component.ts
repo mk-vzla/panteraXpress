@@ -40,7 +40,7 @@ export class ResumenComponent implements OnChanges {
         `INSERT INTO resumen_viaje (id_pasaje, origen, destino, salida, asientos) VALUES (?, ?, ?, ?, ?)`,
         [id_pasaje, this.origen, this.destino, this.salida, this.asientosSeleccionados]
       ).then(() => {
-        this.localDB['mostrarToast']('Resumen de viaje guardado');
+        this.localDB['mostrarToast']('COMPRA REALIZADA CON ÉXITO');
         // Guardar origen y destino en localStorage
         localStorage.setItem('origenSeleccionado', this.origen);
         localStorage.setItem('destinoSeleccionado', this.destino);

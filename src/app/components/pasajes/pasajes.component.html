@@ -18,7 +18,10 @@
         <span><strong>Destino:</strong> {{ pasaje.destino }}</span>
         <span><strong>Salida:</strong> {{ pasaje.salida }}</span>
         <span><strong>N° Asiento(s):</strong> {{ pasaje.asientos }}</span>
-        
+        <div class="resaltador-qr">
+          <span class="resaltador-texto">Mostrar código QR de pasaje:</span>
+          <ion-icon name="qr-code-outline" class="qr-icon"></ion-icon>
+        </div>
       </mat-card>
     </mat-card>
   </ng-container>
