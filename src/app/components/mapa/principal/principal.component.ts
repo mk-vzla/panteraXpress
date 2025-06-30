@@ -15,8 +15,8 @@ export class PrincipalComponent implements AfterViewInit {
   private rutaPolyline?: L.Polyline;    // Línea que muestra la ruta en el mapa
   private etaPopup?: L.Popup;           // Popup que muestra ETA sobre el destino
 
-  private destino = 'Arica';            // Destino actual
-  private origen = 'Santiago';          // Origen actual
+  public destino = 'Arica';            // Destino actual
+  public origen = 'Santiago';          // Origen actual
   private coordDestino: [number, number] | null = null; // Coordenadas del destino
 
   constructor(

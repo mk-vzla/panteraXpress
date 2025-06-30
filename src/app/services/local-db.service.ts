@@ -69,6 +69,7 @@ export class LocalDBService {
     // Tabla resumen_viaje
     this.bd.executeSql(
       `CREATE TABLE IF NOT EXISTS resumen_viaje (
+        id_pasaje INTEGER PRIMARY KEY,
         origen TEXT(25),
         destino TEXT(25),
         salida TEXT(5),

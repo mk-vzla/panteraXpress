@@ -43,6 +43,16 @@ export class HomePage {
   constructor(private router: Router, private busRutasService: BusRutasService) {
     this.listaOrigenes = Array.from(new Set(this.busRutasService.rutas.map(r => r.origen)));
     this.actualizarDestinos();
+    // Escuchar evento personalizado para abrir el mapa desde pasajes
+    window.addEventListener('abrirMapaSegmento', () => {
+      this.segmentoSeleccionado = 'unknown2';
+    });
+    // Escuchar evento personalizado para abrir el segmento de pasajes (resumen)
+    window.addEventListener('abrirPasajesSegmento', () => {
+      this.segmentoSeleccionado = 'resumen';
+      this.mostrarResumen = false;
+      this.mostrarSelectorAsiento = false;
+    });
   }
 
   // Método para actualizar la lista de destinos según el origen seleccionado

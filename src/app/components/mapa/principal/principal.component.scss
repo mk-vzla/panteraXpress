@@ -20,3 +20,32 @@ ion-content, .map-container {
   max-width: 100%;
   z-index: 1;
 }
+
+.map-legend {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  left: auto;
+  background: rgba(62,62,62,0.92); /* Gris tormenta con transparencia */
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(34,34,34,0.18); /* Negro carbón */
+  padding: 14px 22px;
+  z-index: 10;
+  font-size: 1.08rem;
+  color: #A67C00; /* Dorado envejecido para el texto */
+  min-width: 140px;
+  border: 2px solid #5E2129; /* Burdeos oscuro */
+  font-weight: 500;
+  letter-spacing: 0.5px;
+}
+.map-legend span {
+  display: block;
+  background: #5E2129; /* Burdeos oscuro */
+  color: #A67C00; /* Dorado envejecido */
+  padding: 2px 10px;
+  border-radius: 5px;
+  margin-bottom: 6px;
+  width: fit-content;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}

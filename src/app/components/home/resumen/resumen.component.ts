@@ -30,15 +30,22 @@ export class ResumenComponent implements OnChanges {
   onPagar() {
     const confirmado = window.confirm('¿Ha realizado el pago?');
     if (confirmado) {
+      // Generar id_pasaje alfanumérico de 20 caracteres
+      const id_pasaje = Array.from({length: 20}, () => {
+        const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        return chars.charAt(Math.floor(Math.random() * chars.length));
+      }).join('');
       // Guardar en la BD local
       this.localDB.bd.executeSql(
-        `INSERT INTO resumen_viaje (origen, destino, salida, asientos) VALUES (?, ?, ?, ?)`,
-        [this.origen, this.destino, this.salida, this.asientosSeleccionados]
+        `INSERT INTO resumen_viaje (id_pasaje, origen, destino, salida, asientos) VALUES (?, ?, ?, ?, ?)`,
+        [id_pasaje, this.origen, this.destino, this.salida, this.asientosSeleccionados]
       ).then(() => {
         this.localDB['mostrarToast']('Resumen de viaje guardado');
         // Guardar origen y destino en localStorage
         localStorage.setItem('origenSeleccionado', this.origen);
         localStorage.setItem('destinoSeleccionado', this.destino);
+        // Cambiar segmento a 'resumen' para mostrar pasajes
+        window.dispatchEvent(new CustomEvent('abrirPasajesSegmento'));
       }).catch(err => {
         this.localDB['mostrarToast']('Error al guardar el resumen de viaje');
         console.error('Error al guardar resumen_viaje', err);
