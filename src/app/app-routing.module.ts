@@ -24,11 +24,11 @@ const routes: Routes = [
   },
   {
     path: 'asiento',
-    loadChildren: () => import('./pages/asiento/asiento.module').then( m => m.AsientoPageModule), canActivate: [AuthGuard]
+    loadChildren: () => import('./pages/asiento/asiento.module').then( m => m.AsientoPageModule), canActivate: [false]
   },
   {
     path: 'resumen',
-    loadChildren: () => import('./pages/resumen/resumen.module').then( m => m.ResumenPageModule), canActivate: [AuthGuard]
+    loadChildren: () => import('./pages/resumen/resumen.module').then( m => m.ResumenPageModule), canActivate: [false]
   },
   {
     path: 'indicaciones',
