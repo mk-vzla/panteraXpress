@@ -14,7 +14,8 @@ export class LoginPage implements OnInit {
 
   email: string = '';
   password: string = '';
-  toggleSeleccion: string = 'login'; // <-- Añadido para activar Ingresar por defecto
+  toggleSeleccion: string = 'login';
+  usuariosRegistrados: string[] = [];
 
   constructor(
     private router: Router,
@@ -95,11 +96,23 @@ export class LoginPage implements OnInit {
     this.router.navigate(['/registro']).then(() => { location.reload(); });
   }
 
-  // Método para cambiar entre "Ingresar" y "Registrarse"
-  ngOnInit() {
+  async ngOnInit() {
+    await this.cargarUsuarios();
     const navigation = this.router.getCurrentNavigation();
     if (navigation?.extras?.state && navigation.extras.state['email']) {
       this.email = navigation.extras.state['email'];
+    }
+  }
+
+  async cargarUsuarios() {
+    try {
+      const res = await this.localDBService.bd.executeSql('SELECT usuario_email FROM datos_usuario', []);
+      this.usuariosRegistrados = [];
+      for (let i = 0; i < res.rows.length; i++) {
+        this.usuariosRegistrados.push(res.rows.item(i).usuario_email);
+      }
+    } catch (error) {
+      this.usuariosRegistrados = [];
     }
   }
 

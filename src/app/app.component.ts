@@ -53,7 +53,19 @@ export class AppComponent {
       document.activeElement.blur();
     }
     this.menu.close();
+    const email = localStorage.getItem('email');
     localStorage.removeItem('email');
+    // Cambia el estado de sesión a 0 en la base de datos local
+    if (email) {
+      try {
+        await this.localDBService.bd.executeSql(
+          'UPDATE sesion_data SET active_session = 0 WHERE user_email_session = ?',
+          [email]
+        );
+      } catch (error) {
+        // Opcional: mostrar error si falla el update
+      }
+    }
     await this.mostrarToast('Conexión Cerrada ');
   }
 }

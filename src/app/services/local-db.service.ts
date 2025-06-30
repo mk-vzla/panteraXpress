@@ -40,32 +40,30 @@ export class LocalDBService {
   }
 
   private crearTablas() {
-    // Tabla sesion_data
-    this.bd.executeSql(
-      `CREATE TABLE IF NOT EXISTS sesion_data (
-        user_name TEXT(8) PRIMARY KEY,
-        password INTEGER(4),
-        active INTEGER(1) DEFAULT 0 NOT NULL
-      )`, []
-    )
-      // .then(() => this.mostrarToast('Tabla sesion_data creada correctamente'))
-      .catch(error => this.mostrarToast('Error al crear la tabla sesion_data'))
-      ;
-
-    // Tabla mis_datos
+    // Tabla datos_usuario (debe crearse primero por la foreign key)
     this.bd.executeSql(
       `CREATE TABLE IF NOT EXISTS datos_usuario (
         nombre TEXT(15),
         apellido TEXT(15),
         usuario_rut TEXT(10) PRIMARY KEY,
-        usuario_email TEXT(30),
+        usuario_email TEXT(30) UNIQUE,
         contrasena TEXT(15),
         telefono TEXT(12)
       )`, []
     )
       // .then(() => this.mostrarToast('Tabla datos_usuario creada correctamente'))
-      .catch(error => this.mostrarToast('Error al crear la tabla datos_usuario'))
-      ;
+      .catch(error => this.mostrarToast('Error al crear la tabla datos_usuario'));
+
+    // Tabla sesion_data: user_email_session es PRIMARY KEY y FOREIGN KEY de datos_usuario.usuario_email
+    this.bd.executeSql(
+      `CREATE TABLE IF NOT EXISTS sesion_data (
+        user_email_session TEXT(30) PRIMARY KEY,
+        active_session INTEGER(1) DEFAULT 0 NOT NULL
+      )`, []
+    )
+      //.then(() => this.mostrarToast('Tabla sesion_data creada correctamente'))
+      .catch(error => this.mostrarToast('Error al crear la tabla sesion_data'));
+
     // Tabla resumen_viaje
     this.bd.executeSql(
       `CREATE TABLE IF NOT EXISTS resumen_viaje (
@@ -102,10 +100,16 @@ export class LocalDBService {
     return this.bd.executeSql(
       `SELECT * FROM datos_usuario WHERE usuario_email = ? AND contrasena = ?`,
       [usuario_email, contrasena]
-    ).then(res => {
+    ).then(async res => {
       if (res.rows.length > 0) {
         const usuario = res.rows.item(0);
         localStorage.setItem('email', usuario.usuario_email);
+        // Crear o actualizar el registro de sesión activa
+        await this.bd.executeSql(
+          `INSERT OR REPLACE INTO sesion_data (user_email_session, active_session)
+           VALUES (?, 1)`,
+          [usuario.usuario_email]
+        );
         this.mostrarToast('Inicio de sesión exitoso');
         return usuario; // retorna el usuario encontrado
       } else {
