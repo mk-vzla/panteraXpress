@@ -23,21 +23,16 @@ const routes: Routes = [
     loadChildren: () => import('./pages/registro/registro.module').then( m => m.RegistroPageModule)
   },
   {
-    path: 'asiento',
-    loadChildren: () => import('./pages/asiento/asiento.module').then( m => m.AsientoPageModule), canActivate: [false]
-  },
-  {
-    path: 'resumen',
-    loadChildren: () => import('./pages/resumen/resumen.module').then( m => m.ResumenPageModule), canActivate: [false]
-  },
-  {
     path: 'indicaciones',
     loadChildren: () => import('./pages/indicaciones/indicaciones.module').then( m => m.IndicacionesPageModule)
   },
   {
-    path: '**', component: PageNotFoundComponent
+    path: 'reportar',
+    loadChildren: () => import('./pages/reportar/reportar.module').then( m => m.ReportarPageModule), canActivate: [AuthGuard]
   },
-
+  {
+    path: '**', component: PageNotFoundComponent
+  }
 ];
 
 @NgModule({

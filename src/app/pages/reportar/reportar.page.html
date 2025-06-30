@@ -1,0 +1,33 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <img src="assets/images/panteraxxx.png" class="pantera-banner" alt="Pantera" />
+    <ion-buttons slot="start">
+      <ion-menu-button autoHide="false"></ion-menu-button>
+    </ion-buttons>
+    <ion-title><ion-icon name="bus-outline"></ion-icon>panteraXpress<ion-icon name="bus-outline"></ion-icon></ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+  <mat-card class="reporte-card">
+    <form (ngSubmit)="enviarReporte()">
+      <ion-item lines="none">
+        <!-- <ion-label position="stacked">Descripción</ion-label> -->
+        <ion-textarea [(ngModel)]="descripcion" name="descripcion" required placeholder="Describe el incidente..."></ion-textarea>
+      </ion-item>
+
+      <div class="foto-preview" *ngIf="foto">
+        <img [src]="foto" alt="Foto incidente" style="max-width: 100%; border-radius: 8px; margin: 10px 0;" />
+      </div>
+      <ion-button expand="block" type="button" class="tomar-foto-btn" (click)="tomarFoto()">
+        <ion-icon name="camera" slot="start"></ion-icon>
+        Tomar foto
+      </ion-button>
+
+      <ion-button expand="block" type="submit" class="enviar-reporte-btn" [disabled]="!descripcion || enviando">
+        <ion-icon name="send" slot="start"></ion-icon>
+        {{ enviando ? 'Enviando...' : 'Enviar reporte' }}
+      </ion-button>
+    </form>
+  </mat-card>
+</ion-content>
