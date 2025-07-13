@@ -121,7 +121,6 @@ export class LoginPage implements OnInit {
   onEmailChange(value: string) {
     this.email = value.toLowerCase();
   }
-
 }
 
 
@@ -132,7 +131,7 @@ export class LoginPage implements OnInit {
 // import { Router } from '@angular/router';
 // import { NavController } from '@ionic/angular';
 
-// // import { LocalDBService } from '../../services/local-db.service'; // Descomenta para uso real
+// // import { LocalDBService } from '../../services/local-db.service'; // desactivado para unitarias
 
 // @Component({
 //   selector: 'app-login',
