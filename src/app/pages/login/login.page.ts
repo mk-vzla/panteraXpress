@@ -1,3 +1,5 @@
+//----------------------------------------------------------------------------------------------------------------------------Producción
+
 import { Component, OnInit } from '@angular/core';
 import { AlertController, ToastController } from '@ionic/angular';
 import { Router } from '@angular/router';
@@ -121,3 +123,146 @@ export class LoginPage implements OnInit {
   }
 
 }
+
+
+// //----------------------------------------------------------------------------------------------------------------------------UNITARIAS
+// // Por separado, para unitarias:
+// import { Component, OnInit } from '@angular/core';
+// import { AlertController, ToastController } from '@ionic/angular';
+// import { Router } from '@angular/router';
+// import { NavController } from '@ionic/angular';
+
+// // import { LocalDBService } from '../../services/local-db.service'; // Descomenta para uso real
+
+// @Component({
+//   selector: 'app-login',
+//   templateUrl: './login.page.html',
+//   styleUrls: ['./login.page.scss'],
+//   standalone: false
+// })
+// export class LoginPage implements OnInit {
+
+//   email: string = '';
+//   password: string = '';
+//   toggleSeleccion: string = 'login';
+//   usuariosRegistrados: string[] = [];
+
+//   constructor(
+//     private router: Router,
+//     private alertController: AlertController,
+//     private toastController: ToastController,
+//     private navCtrl: NavController,
+//     // private localDBService: LocalDBService // Descomenta para uso real
+//   ) { }
+
+//   async mostrarAlerta(mensaje: string) {
+//     const alerta = await this.alertController.create({
+//       header: 'Alerta',
+//       message: mensaje,
+//       buttons: ['OK']
+//     });
+//     await alerta.present();
+//   }
+
+//   async mostrarToast(mensaje: string) {
+//     const toast = await this.toastController.create({
+//       message: mensaje,
+//       duration: 2000,
+//       position: 'bottom',
+//       color: 'success'
+//     });
+//     toast.present();
+//   }
+
+//   // Método para cambiar entre "Ingresar" y "Registrarse"
+//   async conectarseLogin() {
+//     if (!this.email || !this.password) {
+//       this.mostrarAlerta('Por favor, completa todos los campos.');
+//       this.mostrarToast('Por favor, completa todos los campos.');
+//       return;
+//     }
+
+//     this.email = this.email.trim();
+//     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+//     if (!emailRegex.test(this.email)) {
+//       this.mostrarAlerta('Por favor, ingresa un email válido.');
+//       this.mostrarToast('Por favor, ingresa un email válido.');
+//       return;
+//     }
+
+//     if (this.password.length != 4 || /^\d{4}$/.test(this.password) === false) {
+//       this.mostrarAlerta('La contraseña deben ser: 4 NÚMEROS.');
+//       this.mostrarToast('La contraseña deben ser: 4 NÚMEROS.');
+//       this.password = '';
+//       return;
+//     }
+//     // Quitar el foco del elemento activo antes de navegar
+//     if (document.activeElement instanceof HTMLElement) {
+//       document.activeElement.blur();
+//     }
+
+//     // HARDOCDE PARA UNIT TEST: Validación sin base de datos
+//     if (
+//       this.email === 'michaelvzla@gmail.com' &&
+//       this.password === '1212'
+//     ) {
+//       await this.mostrarToast('Conexión exitosa: ' + this.email);
+//       localStorage.setItem('email', this.email); // Guarda el email en localStorage
+//       this.navCtrl.navigateForward('/home'); // En producción: this.navCtrl.navigateForward('/home'); REAL://this.router.navigate(['/home'], { state: { email: this.email } });
+//     } else {
+//       this.mostrarAlerta('Usuario o contraseña incorrectos.');
+//       this.mostrarToast('Usuario o contraseña incorrectos.');
+//       this.password = '';
+//     }
+
+//     // --- USO REAL CON SQLITE ---
+//     // try {
+//     //   const usuario = await this.localDBService.validarUsuario(this.email, this.password);
+//     //   if (usuario) {
+//     //     console.log('CONECTANDO:', this.email);
+//     //     await this.mostrarToast('Conexión exitosa: ' + this.email);
+//     //     localStorage.setItem('email', this.email); // Guarda el email en localStorage
+//     //     this.router.navigate(['/home'], { state: { email: this.email } });
+//     //   } else {
+//     //     this.mostrarAlerta('Usuario o contraseña incorrectos.');
+//     //     this.password = '';
+//     //   }
+//     // } catch (error) {
+//     //   const errorMsg = (error instanceof Error) ? error.message : String(error);
+//     //   this.mostrarAlerta('Error al conectarse. ' + errorMsg);
+//     // }
+//   }
+
+//   // Método para cambiar entre "Ingresar" y "Registrarse"
+//   irARegistro() {
+//     this.router.navigate(['/registro']).then(() => { location.reload(); });
+//   }
+
+//   async ngOnInit() {
+//     await this.cargarUsuarios();
+//     const navigation = this.router.getCurrentNavigation();
+//     if (navigation?.extras?.state && navigation.extras.state['email']) {
+//       this.email = navigation.extras.state['email'];
+//     }
+//   }
+
+//   // HARDOCDE PARA UNIT TEST: Usuarios registrados simulados
+//   async cargarUsuarios() {
+//     this.usuariosRegistrados = ['michaelvzla@gmail.com'];
+//     // --- USO REAL CON SQLITE ---
+//     // try {
+//     //   const res = await this.localDBService.bd.executeSql('SELECT usuario_email FROM datos_usuario', []);
+//     //   this.usuariosRegistrados = [];
+//     //   for (let i = 0; i < res.rows.length; i++) {
+//     //     this.usuariosRegistrados.push(res.rows.item(i).usuario_email);
+//     //   }
+//     // } catch (error) {
+//     //   this.usuariosRegistrados = [];
+//     // }
+//   }
+
+//   onEmailChange(value: string) {
+//     this.email = value.toLowerCase();
+//   }
+
+// }
